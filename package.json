@@ -1,0 +1,16 @@
+{
+	"name": "derelict-glib",
+	"description": "Dynamic bindings to glib for the D Programming Language.",
+	"homepage": "https://github.com/PaulFreund/DerelictGlib",
+	"license": "Boost",
+	"authors": [
+		"Paul Freund"
+	],
+	
+	"targetName": "DerelictGlib",
+	"targetPath": "lib",
+	
+	"dependencies": {
+		"derelict-util" : "~master"
+	}
+}
