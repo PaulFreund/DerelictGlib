@@ -39,44 +39,70 @@ alias int function (void*, void*, void*) GTraverseFunc;
 
 struct _GTree;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_tree_new = GTree* function(GCompareFunc key_compare_func);																											
-    alias da_g_tree_new_with_data = GTree* function(GCompareDataFunc key_compare_func, gpointer key_compare_data);																	
-    alias da_g_tree_new_full = GTree* function(GCompareDataFunc key_compare_func, gpointer key_compare_data, GDestroyNotify key_destroy_func, GDestroyNotify value_destroy_func);	
-    alias da_g_tree_ref = GTree* function(GTree* tree);																																
-    alias da_g_tree_unref = void function(GTree* tree);																																
-    alias da_g_tree_destroy = void function(GTree* tree);																															
-    alias da_g_tree_insert = void function(GTree* tree, gpointer key, gpointer value);																								
-    alias da_g_tree_replace = void function(GTree* tree, gpointer key, gpointer value);																								
-    alias da_g_tree_remove = gboolean function(GTree* tree, gconstpointer key);																										
-    alias da_g_tree_steal = gboolean function(GTree* tree, gconstpointer key);																										
-    alias da_g_tree_lookup = gpointer function(GTree* tree, gconstpointer key);																										
-    alias da_g_tree_lookup_extended = gboolean function(GTree* tree, gconstpointer lookup_key, gpointer* orig_key, gpointer* value);												
-    alias da_g_tree_foreach = void function(GTree* tree, GTraverseFunc func, gpointer user_data);																					
-    alias da_g_tree_traverse = void function(GTree* tree, GTraverseFunc traverse_func, GTraverseType traverse_type, gpointer user_data);											
-    alias da_g_tree_search = gpointer function(GTree* tree, GCompareFunc search_func, gconstpointer user_data);																		
-    alias da_g_tree_height = gint function(GTree* tree);																															
-    alias da_g_tree_nnodes = gint function(GTree* tree);		
+    extern( C ) nothrow 
+    {
+        GTree* g_tree_new(GCompareFunc key_compare_func);
+        GTree* g_tree_new_with_data(GCompareDataFunc key_compare_func, gpointer key_compare_data);
+        GTree* g_tree_new_full(GCompareDataFunc key_compare_func, gpointer key_compare_data, GDestroyNotify key_destroy_func, GDestroyNotify value_destroy_func);
+        GTree* g_tree_ref(GTree* tree);
+        void g_tree_unref(GTree* tree);
+        void g_tree_destroy(GTree* tree);
+        void g_tree_insert(GTree* tree, gpointer key, gpointer value);
+        void g_tree_replace(GTree* tree, gpointer key, gpointer value);
+        gboolean g_tree_remove(GTree* tree, gconstpointer key);
+        gboolean g_tree_steal(GTree* tree, gconstpointer key);
+        gpointer g_tree_lookup(GTree* tree, gconstpointer key);
+        gboolean g_tree_lookup_extended(GTree* tree, gconstpointer lookup_key, gpointer* orig_key, gpointer* value);
+        void g_tree_foreach(GTree* tree, GTraverseFunc func, gpointer user_data);
+        void g_tree_traverse(GTree* tree, GTraverseFunc traverse_func, GTraverseType traverse_type, gpointer user_data);
+        gpointer g_tree_search(GTree* tree, GCompareFunc search_func, gconstpointer user_data);
+        gint g_tree_height(GTree* tree);
+        gint g_tree_nnodes(GTree* tree);
+    }
 }
-
-__gshared
+else
 {
-    da_g_tree_new g_tree_new; 
-    da_g_tree_new_with_data g_tree_new_with_data; 
-    da_g_tree_new_full g_tree_new_full; 
-    da_g_tree_ref g_tree_ref; 
-    da_g_tree_unref g_tree_unref; 
-    da_g_tree_destroy g_tree_destroy; 
-    da_g_tree_insert g_tree_insert; 
-    da_g_tree_replace g_tree_replace; 
-    da_g_tree_remove g_tree_remove; 
-    da_g_tree_steal g_tree_steal; 
-    da_g_tree_lookup g_tree_lookup; 
-    da_g_tree_lookup_extended g_tree_lookup_extended; 
-    da_g_tree_foreach g_tree_foreach; 
-    da_g_tree_traverse g_tree_traverse; 
-    da_g_tree_search g_tree_search; 
-    da_g_tree_height g_tree_height; 
-    da_g_tree_nnodes g_tree_nnodes; 
+    extern( C ) nothrow 
+    {
+        alias da_g_tree_new = GTree* function(GCompareFunc key_compare_func);																											
+        alias da_g_tree_new_with_data = GTree* function(GCompareDataFunc key_compare_func, gpointer key_compare_data);																	
+        alias da_g_tree_new_full = GTree* function(GCompareDataFunc key_compare_func, gpointer key_compare_data, GDestroyNotify key_destroy_func, GDestroyNotify value_destroy_func);	
+        alias da_g_tree_ref = GTree* function(GTree* tree);																																
+        alias da_g_tree_unref = void function(GTree* tree);																																
+        alias da_g_tree_destroy = void function(GTree* tree);																															
+        alias da_g_tree_insert = void function(GTree* tree, gpointer key, gpointer value);																								
+        alias da_g_tree_replace = void function(GTree* tree, gpointer key, gpointer value);																								
+        alias da_g_tree_remove = gboolean function(GTree* tree, gconstpointer key);																										
+        alias da_g_tree_steal = gboolean function(GTree* tree, gconstpointer key);																										
+        alias da_g_tree_lookup = gpointer function(GTree* tree, gconstpointer key);																										
+        alias da_g_tree_lookup_extended = gboolean function(GTree* tree, gconstpointer lookup_key, gpointer* orig_key, gpointer* value);												
+        alias da_g_tree_foreach = void function(GTree* tree, GTraverseFunc func, gpointer user_data);																					
+        alias da_g_tree_traverse = void function(GTree* tree, GTraverseFunc traverse_func, GTraverseType traverse_type, gpointer user_data);											
+        alias da_g_tree_search = gpointer function(GTree* tree, GCompareFunc search_func, gconstpointer user_data);																		
+        alias da_g_tree_height = gint function(GTree* tree);																															
+        alias da_g_tree_nnodes = gint function(GTree* tree);		
+    }
+
+    __gshared
+    {
+        da_g_tree_new g_tree_new; 
+        da_g_tree_new_with_data g_tree_new_with_data; 
+        da_g_tree_new_full g_tree_new_full; 
+        da_g_tree_ref g_tree_ref; 
+        da_g_tree_unref g_tree_unref; 
+        da_g_tree_destroy g_tree_destroy; 
+        da_g_tree_insert g_tree_insert; 
+        da_g_tree_replace g_tree_replace; 
+        da_g_tree_remove g_tree_remove; 
+        da_g_tree_steal g_tree_steal; 
+        da_g_tree_lookup g_tree_lookup; 
+        da_g_tree_lookup_extended g_tree_lookup_extended; 
+        da_g_tree_foreach g_tree_foreach; 
+        da_g_tree_traverse g_tree_traverse; 
+        da_g_tree_search g_tree_search; 
+        da_g_tree_height g_tree_height; 
+        da_g_tree_nnodes g_tree_nnodes; 
+    }
 }

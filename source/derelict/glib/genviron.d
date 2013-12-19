@@ -33,26 +33,43 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_getenv = const(gchar)* function(const(gchar)* variable);																
-    alias da_g_setenv = gboolean function(const(gchar)* variable, const(gchar)* value, gboolean overwrite);							
-    alias da_g_unsetenv = void function(const(gchar)* variable);																	
-    alias da_g_listenv = gchar** function();																						
-    alias da_g_get_environ = gchar** function();																					
-    alias da_g_environ_getenv = const(gchar)* function(gchar** envp, const(gchar)* variable);										
-    alias da_g_environ_setenv = gchar** function(gchar** envp, const(gchar)* variable, const(gchar)* value, gboolean overwrite);	
-    alias da_g_environ_unsetenv = gchar** function(gchar** envp, const(gchar)* variable);											
+    extern( C ) nothrow 
+    {
+        const(gchar)* g_getenv(const(gchar)* variable);
+        gboolean g_setenv(const(gchar)* variable, const(gchar)* value, gboolean overwrite);
+        void g_unsetenv(const(gchar)* variable);
+        gchar** g_listenv();
+        gchar** g_get_environ();
+        const(gchar)* g_environ_getenv(gchar** envp, const(gchar)* variable);
+        gchar** g_environ_setenv(gchar** envp, const(gchar)* variable, const(gchar)* value, gboolean overwrite);
+        gchar** g_environ_unsetenv(gchar** envp, const(gchar)* variable);
+    }
 }
-
-__gshared
+else
 {
-    da_g_getenv g_getenv; 
-    da_g_setenv g_setenv; 
-    da_g_unsetenv g_unsetenv; 
-    da_g_listenv g_listenv; 
-    da_g_get_environ g_get_environ; 
-    da_g_environ_getenv g_environ_getenv; 
-    da_g_environ_setenv g_environ_setenv; 
-    da_g_environ_unsetenv g_environ_unsetenv; 
+    extern( C ) nothrow 
+    {
+        alias da_g_getenv = const(gchar)* function(const(gchar)* variable);																
+        alias da_g_setenv = gboolean function(const(gchar)* variable, const(gchar)* value, gboolean overwrite);							
+        alias da_g_unsetenv = void function(const(gchar)* variable);																	
+        alias da_g_listenv = gchar** function();																						
+        alias da_g_get_environ = gchar** function();																					
+        alias da_g_environ_getenv = const(gchar)* function(gchar** envp, const(gchar)* variable);										
+        alias da_g_environ_setenv = gchar** function(gchar** envp, const(gchar)* variable, const(gchar)* value, gboolean overwrite);	
+        alias da_g_environ_unsetenv = gchar** function(gchar** envp, const(gchar)* variable);											
+    }
+
+    __gshared
+    {
+        da_g_getenv g_getenv; 
+        da_g_setenv g_setenv; 
+        da_g_unsetenv g_unsetenv; 
+        da_g_listenv g_listenv; 
+        da_g_get_environ g_get_environ; 
+        da_g_environ_getenv g_environ_getenv; 
+        da_g_environ_setenv g_environ_setenv; 
+        da_g_environ_unsetenv g_environ_unsetenv; 
+    }
 }

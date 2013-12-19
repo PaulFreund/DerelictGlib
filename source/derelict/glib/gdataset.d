@@ -39,40 +39,64 @@ alias void function (uint, void*, void*) GDataForeachFunc;
 
 struct _GData;
 
-extern( C ) nothrow
+version(Derelict_Link_Static)
 {
-    alias da_g_datalist_init = void function(GData** datalist);																																							
-    alias da_g_datalist_clear = void function(GData** datalist);																																						
-    alias da_g_datalist_id_get_data = gpointer function(GData** datalist, GQuark key_id);																																
-    alias da_g_datalist_id_set_data_full = void function(GData** datalist, GQuark key_id, gpointer data, GDestroyNotify destroy_func);																					
-    alias da_g_datalist_id_remove_no_notify = gpointer function(GData** datalist, GQuark key_id);																														
-    alias da_g_datalist_foreach = void function(GData** datalist, GDataForeachFunc func, gpointer user_data);																											
-    alias da_g_datalist_set_flags = void function(GData** datalist, guint flags);																																		
-    alias da_g_datalist_unset_flags = void function(GData** datalist, guint flags);																																		
-    alias da_g_datalist_get_flags = guint function(GData** datalist);																																					
-    alias da_g_dataset_destroy = void function(gconstpointer dataset_location);																																			
-    alias da_g_dataset_id_get_data = gpointer function(gconstpointer dataset_location, GQuark key_id);																													
-    alias da_g_datalist_get_data = gpointer function(GData** datalist, const(gchar)* key);																																
-    alias da_g_dataset_id_set_data_full = void function(gconstpointer dataset_location, GQuark key_id, gpointer data, GDestroyNotify destroy_func);																		
-    alias da_g_dataset_id_remove_no_notify = gpointer function(gconstpointer dataset_location, GQuark key_id);																											
-    alias da_g_dataset_foreach = void function(gconstpointer dataset_location, GDataForeachFunc func, gpointer user_data);																								
+    extern( C ) nothrow
+    {
+        void g_datalist_init(GData** datalist);
+        void g_datalist_clear(GData** datalist);
+        gpointer g_datalist_id_get_data(GData** datalist, GQuark key_id);
+        void g_datalist_id_set_data_full(GData** datalist, GQuark key_id, gpointer data, GDestroyNotify destroy_func);
+        gpointer g_datalist_id_remove_no_notify(GData** datalist, GQuark key_id);
+        void g_datalist_foreach(GData** datalist, GDataForeachFunc func, gpointer user_data);
+        void g_datalist_set_flags(GData** datalist, guint flags);
+        void g_datalist_unset_flags(GData** datalist, guint flags);
+        guint g_datalist_get_flags(GData** datalist);
+        void g_dataset_destroy(gconstpointer dataset_location);
+        gpointer g_dataset_id_get_data(gconstpointer dataset_location, GQuark key_id);
+        gpointer g_datalist_get_data(GData** datalist, const(gchar)* key);
+        void g_dataset_id_set_data_full(gconstpointer dataset_location, GQuark key_id, gpointer data, GDestroyNotify destroy_func);
+        gpointer g_dataset_id_remove_no_notify(gconstpointer dataset_location, GQuark key_id);
+        void g_dataset_foreach(gconstpointer dataset_location, GDataForeachFunc func, gpointer user_data);
+    }
 }
-
-__gshared
+else
 {
-    da_g_datalist_init g_datalist_init; 
-    da_g_datalist_clear g_datalist_clear; 
-    da_g_datalist_id_get_data g_datalist_id_get_data; 
-    da_g_datalist_id_set_data_full g_datalist_id_set_data_full; 
-    da_g_datalist_id_remove_no_notify g_datalist_id_remove_no_notify; 
-    da_g_datalist_foreach g_datalist_foreach; 
-    da_g_datalist_set_flags g_datalist_set_flags; 
-    da_g_datalist_unset_flags g_datalist_unset_flags; 
-    da_g_datalist_get_flags g_datalist_get_flags; 
-    da_g_dataset_destroy g_dataset_destroy; 
-    da_g_dataset_id_get_data g_dataset_id_get_data; 
-    da_g_datalist_get_data g_datalist_get_data; 
-    da_g_dataset_id_set_data_full g_dataset_id_set_data_full; 
-    da_g_dataset_id_remove_no_notify g_dataset_id_remove_no_notify; 
-    da_g_dataset_foreach g_dataset_foreach; 
+    extern( C ) nothrow
+    {
+        alias da_g_datalist_init = void function(GData** datalist);																																							
+        alias da_g_datalist_clear = void function(GData** datalist);																																						
+        alias da_g_datalist_id_get_data = gpointer function(GData** datalist, GQuark key_id);																																
+        alias da_g_datalist_id_set_data_full = void function(GData** datalist, GQuark key_id, gpointer data, GDestroyNotify destroy_func);																					
+        alias da_g_datalist_id_remove_no_notify = gpointer function(GData** datalist, GQuark key_id);																														
+        alias da_g_datalist_foreach = void function(GData** datalist, GDataForeachFunc func, gpointer user_data);																											
+        alias da_g_datalist_set_flags = void function(GData** datalist, guint flags);																																		
+        alias da_g_datalist_unset_flags = void function(GData** datalist, guint flags);																																		
+        alias da_g_datalist_get_flags = guint function(GData** datalist);																																					
+        alias da_g_dataset_destroy = void function(gconstpointer dataset_location);																																			
+        alias da_g_dataset_id_get_data = gpointer function(gconstpointer dataset_location, GQuark key_id);																													
+        alias da_g_datalist_get_data = gpointer function(GData** datalist, const(gchar)* key);																																
+        alias da_g_dataset_id_set_data_full = void function(gconstpointer dataset_location, GQuark key_id, gpointer data, GDestroyNotify destroy_func);																		
+        alias da_g_dataset_id_remove_no_notify = gpointer function(gconstpointer dataset_location, GQuark key_id);																											
+        alias da_g_dataset_foreach = void function(gconstpointer dataset_location, GDataForeachFunc func, gpointer user_data);																								
+    }
+
+    __gshared
+    {
+        da_g_datalist_init g_datalist_init; 
+        da_g_datalist_clear g_datalist_clear; 
+        da_g_datalist_id_get_data g_datalist_id_get_data; 
+        da_g_datalist_id_set_data_full g_datalist_id_set_data_full; 
+        da_g_datalist_id_remove_no_notify g_datalist_id_remove_no_notify; 
+        da_g_datalist_foreach g_datalist_foreach; 
+        da_g_datalist_set_flags g_datalist_set_flags; 
+        da_g_datalist_unset_flags g_datalist_unset_flags; 
+        da_g_datalist_get_flags g_datalist_get_flags; 
+        da_g_dataset_destroy g_dataset_destroy; 
+        da_g_dataset_id_get_data g_dataset_id_get_data; 
+        da_g_datalist_get_data g_datalist_get_data; 
+        da_g_dataset_id_set_data_full g_dataset_id_set_data_full; 
+        da_g_dataset_id_remove_no_notify g_dataset_id_remove_no_notify; 
+        da_g_dataset_foreach g_dataset_foreach; 
+    }
 }

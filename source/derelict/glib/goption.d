@@ -92,69 +92,97 @@ struct _GOptionContext;
 
 struct _GOptionGroup;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-	alias da_g_option_error_quark = GQuark function();																																			
-    alias da_g_option_context_new = GOptionContext* function(const(gchar)* parameter_string);																									
-    alias da_g_option_context_set_summary = void function(GOptionContext* context, const(gchar)* summary);																						
-    alias da_g_option_context_get_summary = const(gchar)* function(GOptionContext* context);																									
-    alias da_g_option_context_set_description = void function(GOptionContext* context, const(gchar)* description);																				
-    alias da_g_option_context_get_description = const(gchar)* function(GOptionContext* context);																								
-    alias da_g_option_context_free = void function(GOptionContext* context);																													
-    alias da_g_option_context_set_help_enabled = void function(GOptionContext* context, gboolean help_enabled);																					
-    alias da_g_option_context_get_help_enabled = gboolean function(GOptionContext* context);																									
-    alias da_g_option_context_set_ignore_unknown_options = void function(GOptionContext* context, gboolean ignore_unknown);																		
-    alias da_g_option_context_get_ignore_unknown_options = gboolean function(GOptionContext* context);																							
-    alias da_g_option_context_add_main_entries = void function(GOptionContext* context, const(GOptionEntry)* entries, const(gchar)* translation_domain);										
-    alias da_g_option_context_parse = gboolean function(GOptionContext* context, gint* argc, gchar*** argv, GError** error);																	
-    alias da_g_option_context_set_translate_func = void function(GOptionContext* context, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);									
-    alias da_g_option_context_set_translation_domain = void function(GOptionContext* context, const(gchar)* domain);																			
-    alias da_g_option_context_add_group = void function(GOptionContext* context, GOptionGroup* group);																							
-    alias da_g_option_context_set_main_group = void function(GOptionContext* context, GOptionGroup* group);																						
-    alias da_g_option_context_get_main_group = GOptionGroup* function(GOptionContext* context);																									
-    alias da_g_option_context_get_help = gchar* function(GOptionContext* context, gboolean main_help, GOptionGroup* group);																		
-    alias da_g_option_group_new = GOptionGroup* function(const(gchar)* name, const(gchar)* description, const(gchar)* help_description, gpointer user_data, GDestroyNotify destroy);			
-    alias da_g_option_group_set_parse_hooks = void function(GOptionGroup* group, GOptionParseFunc pre_parse_func, GOptionParseFunc post_parse_func);											
-    alias da_g_option_group_set_error_hook = void function(GOptionGroup* group, GOptionErrorFunc error_func);																					
-    alias da_g_option_group_free = void function(GOptionGroup* group);																															
-    alias da_g_option_group_add_entries = void function(GOptionGroup* group, const(GOptionEntry)* entries);																						
-    alias da_g_option_group_set_translate_func = void function(GOptionGroup* group, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);											
-    alias da_g_option_group_set_translation_domain = void function(GOptionGroup* group, const(gchar)* domain);																					
+    extern( C ) nothrow 
+    {
+	    GQuark g_option_error_quark();
+        GOptionContext* g_option_context_new(const(gchar)* parameter_string);
+        void g_option_context_set_summary(GOptionContext* context, const(gchar)* summary);
+        const(gchar)* g_option_context_get_summary(GOptionContext* context);
+        void g_option_context_set_description(GOptionContext* context, const(gchar)* description);
+        const(gchar)* g_option_context_get_description(GOptionContext* context);
+        void g_option_context_free(GOptionContext* context);
+        void g_option_context_set_help_enabled(GOptionContext* context, gboolean help_enabled);
+        gboolean g_option_context_get_help_enabled(GOptionContext* context);
+        void g_option_context_set_ignore_unknown_options(GOptionContext* context, gboolean ignore_unknown);
+        gboolean g_option_context_get_ignore_unknown_options(GOptionContext* context);
+        void g_option_context_add_main_entries(GOptionContext* context, const(GOptionEntry)* entries, const(gchar)* translation_domain);
+        gboolean g_option_context_parse(GOptionContext* context, gint* argc, gchar*** argv, GError** error);
+        void g_option_context_set_translate_func(GOptionContext* context, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);
+        void g_option_context_set_translation_domain(GOptionContext* context, const(gchar)* domain);
+        void g_option_context_add_group(GOptionContext* context, GOptionGroup* group);
+        void g_option_context_set_main_group(GOptionContext* context, GOptionGroup* group);
+        GOptionGroup* g_option_context_get_main_group(GOptionContext* context);
+        gchar* g_option_context_get_help(GOptionContext* context, gboolean main_help, GOptionGroup* group);
+        GOptionGroup* g_option_group_new(const(gchar)* name, const(gchar)* description, const(gchar)* help_description, gpointer user_data, GDestroyNotify destroy);
+        void g_option_group_set_parse_hooks(GOptionGroup* group, GOptionParseFunc pre_parse_func, GOptionParseFunc post_parse_func);
+        void g_option_group_set_error_hook(GOptionGroup* group, GOptionErrorFunc error_func);
+        void g_option_group_free(GOptionGroup* group);
+        void g_option_group_add_entries(GOptionGroup* group, const(GOptionEntry)* entries);
+        void g_option_group_set_translate_func(GOptionGroup* group, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);
+        void g_option_group_set_translation_domain(GOptionGroup* group, const(gchar)* domain);
+    }
 }
-
-__gshared
+else
 {
-	da_g_option_error_quark g_option_error_quark; 
-    da_g_option_context_new g_option_context_new; 
-    da_g_option_context_set_summary g_option_context_set_summary; 
-    da_g_option_context_get_summary g_option_context_get_summary; 
-    da_g_option_context_set_description g_option_context_set_description; 
-    da_g_option_context_get_description g_option_context_get_description; 
-    da_g_option_context_free g_option_context_free; 
-    da_g_option_context_set_help_enabled g_option_context_set_help_enabled; 
-    da_g_option_context_get_help_enabled g_option_context_get_help_enabled; 
-    da_g_option_context_set_ignore_unknown_options g_option_context_set_ignore_unknown_options; 
-    da_g_option_context_get_ignore_unknown_options g_option_context_get_ignore_unknown_options; 
-    da_g_option_context_add_main_entries g_option_context_add_main_entries; 
-    da_g_option_context_parse g_option_context_parse; 
-    da_g_option_context_set_translate_func g_option_context_set_translate_func; 
-    da_g_option_context_set_translation_domain g_option_context_set_translation_domain; 
-    da_g_option_context_add_group g_option_context_add_group; 
-    da_g_option_context_set_main_group g_option_context_set_main_group; 
-    da_g_option_context_get_main_group g_option_context_get_main_group; 
-    da_g_option_context_get_help g_option_context_get_help; 
-    da_g_option_group_new g_option_group_new; 
-    da_g_option_group_set_parse_hooks g_option_group_set_parse_hooks; 
-    da_g_option_group_set_error_hook g_option_group_set_error_hook; 
-    da_g_option_group_free g_option_group_free; 
-    da_g_option_group_add_entries g_option_group_add_entries; 
-    da_g_option_group_set_translate_func g_option_group_set_translate_func; 
-    da_g_option_group_set_translation_domain g_option_group_set_translation_domain; 
+    extern( C ) nothrow 
+    {
+	    alias da_g_option_error_quark = GQuark function();																																			
+        alias da_g_option_context_new = GOptionContext* function(const(gchar)* parameter_string);																									
+        alias da_g_option_context_set_summary = void function(GOptionContext* context, const(gchar)* summary);																						
+        alias da_g_option_context_get_summary = const(gchar)* function(GOptionContext* context);																									
+        alias da_g_option_context_set_description = void function(GOptionContext* context, const(gchar)* description);																				
+        alias da_g_option_context_get_description = const(gchar)* function(GOptionContext* context);																								
+        alias da_g_option_context_free = void function(GOptionContext* context);																													
+        alias da_g_option_context_set_help_enabled = void function(GOptionContext* context, gboolean help_enabled);																					
+        alias da_g_option_context_get_help_enabled = gboolean function(GOptionContext* context);																									
+        alias da_g_option_context_set_ignore_unknown_options = void function(GOptionContext* context, gboolean ignore_unknown);																		
+        alias da_g_option_context_get_ignore_unknown_options = gboolean function(GOptionContext* context);																							
+        alias da_g_option_context_add_main_entries = void function(GOptionContext* context, const(GOptionEntry)* entries, const(gchar)* translation_domain);										
+        alias da_g_option_context_parse = gboolean function(GOptionContext* context, gint* argc, gchar*** argv, GError** error);																	
+        alias da_g_option_context_set_translate_func = void function(GOptionContext* context, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);									
+        alias da_g_option_context_set_translation_domain = void function(GOptionContext* context, const(gchar)* domain);																			
+        alias da_g_option_context_add_group = void function(GOptionContext* context, GOptionGroup* group);																							
+        alias da_g_option_context_set_main_group = void function(GOptionContext* context, GOptionGroup* group);																						
+        alias da_g_option_context_get_main_group = GOptionGroup* function(GOptionContext* context);																									
+        alias da_g_option_context_get_help = gchar* function(GOptionContext* context, gboolean main_help, GOptionGroup* group);																		
+        alias da_g_option_group_new = GOptionGroup* function(const(gchar)* name, const(gchar)* description, const(gchar)* help_description, gpointer user_data, GDestroyNotify destroy);			
+        alias da_g_option_group_set_parse_hooks = void function(GOptionGroup* group, GOptionParseFunc pre_parse_func, GOptionParseFunc post_parse_func);											
+        alias da_g_option_group_set_error_hook = void function(GOptionGroup* group, GOptionErrorFunc error_func);																					
+        alias da_g_option_group_free = void function(GOptionGroup* group);																															
+        alias da_g_option_group_add_entries = void function(GOptionGroup* group, const(GOptionEntry)* entries);																						
+        alias da_g_option_group_set_translate_func = void function(GOptionGroup* group, GTranslateFunc func, gpointer data, GDestroyNotify destroy_notify);											
+        alias da_g_option_group_set_translation_domain = void function(GOptionGroup* group, const(gchar)* domain);																					
+    }
+
+    __gshared
+    {
+	    da_g_option_error_quark g_option_error_quark; 
+        da_g_option_context_new g_option_context_new; 
+        da_g_option_context_set_summary g_option_context_set_summary; 
+        da_g_option_context_get_summary g_option_context_get_summary; 
+        da_g_option_context_set_description g_option_context_set_description; 
+        da_g_option_context_get_description g_option_context_get_description; 
+        da_g_option_context_free g_option_context_free; 
+        da_g_option_context_set_help_enabled g_option_context_set_help_enabled; 
+        da_g_option_context_get_help_enabled g_option_context_get_help_enabled; 
+        da_g_option_context_set_ignore_unknown_options g_option_context_set_ignore_unknown_options; 
+        da_g_option_context_get_ignore_unknown_options g_option_context_get_ignore_unknown_options; 
+        da_g_option_context_add_main_entries g_option_context_add_main_entries; 
+        da_g_option_context_parse g_option_context_parse; 
+        da_g_option_context_set_translate_func g_option_context_set_translate_func; 
+        da_g_option_context_set_translation_domain g_option_context_set_translation_domain; 
+        da_g_option_context_add_group g_option_context_add_group; 
+        da_g_option_context_set_main_group g_option_context_set_main_group; 
+        da_g_option_context_get_main_group g_option_context_get_main_group; 
+        da_g_option_context_get_help g_option_context_get_help; 
+        da_g_option_group_new g_option_group_new; 
+        da_g_option_group_set_parse_hooks g_option_group_set_parse_hooks; 
+        da_g_option_group_set_error_hook g_option_group_set_error_hook; 
+        da_g_option_group_free g_option_group_free; 
+        da_g_option_group_add_entries g_option_group_add_entries; 
+        da_g_option_group_set_translate_func g_option_group_set_translate_func; 
+        da_g_option_group_set_translation_domain g_option_group_set_translation_domain; 
+    }
 }
-
-
-
-
-
-
-

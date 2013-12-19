@@ -35,38 +35,61 @@ import core.stdc.config;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_bytes_new = GBytes* function(gconstpointer data, gsize size);																		
-    alias da_g_bytes_new_take = GBytes* function(gpointer data, gsize size);																		
-    alias da_g_bytes_new_static = GBytes* function(gconstpointer data, gsize size);																	
-    alias da_g_bytes_new_with_free_func = GBytes* function(gconstpointer data, gsize size, GDestroyNotify free_func, gpointer user_data);			
-    alias da_g_bytes_new_from_bytes = GBytes* function(GBytes* bytes, gsize offset, gsize length);													
-    alias da_g_bytes_get_data = gconstpointer function(GBytes* bytes, gsize* size);																	
-    alias da_g_bytes_get_size = gsize function(GBytes* bytes);																						
-    alias da_g_bytes_ref = GBytes* function(GBytes* bytes);																							
-    alias da_g_bytes_unref = void function(GBytes* bytes);																							
-    alias da_g_bytes_unref_to_data = gpointer function(GBytes* bytes, gsize* size);																	
-    alias da_g_bytes_unref_to_array = GByteArray* function(GBytes* bytes);																			
-    alias da_g_bytes_hash = guint function(gconstpointer bytes);																					
-    alias da_g_bytes_equal = gboolean function(gconstpointer bytes1, gconstpointer bytes2);															
-    alias da_g_bytes_compare = gint function(gconstpointer bytes1, gconstpointer bytes2);															
+    extern( C ) nothrow 
+    {
+        GBytes* g_bytes_new(gconstpointer data, gsize size);
+        GBytes* g_bytes_new_take(gpointer data, gsize size);
+        GBytes* g_bytes_new_static(gconstpointer data, gsize size);
+        GBytes* g_bytes_new_with_free_func(gconstpointer data, gsize size, GDestroyNotify free_func, gpointer user_data);
+        GBytes* g_bytes_new_from_bytes(GBytes* bytes, gsize offset, gsize length);
+        gconstpointer g_bytes_get_data(GBytes* bytes, gsize* size);
+        gsize g_bytes_get_size(GBytes* bytes);
+        GBytes* g_bytes_ref(GBytes* bytes);
+        void g_bytes_unref(GBytes* bytes);
+        gpointer g_bytes_unref_to_data(GBytes* bytes, gsize* size);
+        GByteArray* g_bytes_unref_to_array(GBytes* bytes);
+        guint g_bytes_hash(gconstpointer bytes);
+        gboolean g_bytes_equal(gconstpointer bytes1, gconstpointer bytes2);
+        gint g_bytes_compare(gconstpointer bytes1, gconstpointer bytes2);
+    }
 }
-
-__gshared
+else
 {
-    da_g_bytes_new g_bytes_new; 
-    da_g_bytes_new_take g_bytes_new_take; 
-    da_g_bytes_new_static g_bytes_new_static; 
-    da_g_bytes_new_with_free_func g_bytes_new_with_free_func; 
-    da_g_bytes_new_from_bytes g_bytes_new_from_bytes; 
-    da_g_bytes_get_data g_bytes_get_data; 
-    da_g_bytes_get_size g_bytes_get_size; 
-    da_g_bytes_ref g_bytes_ref; 
-    da_g_bytes_unref g_bytes_unref; 
-    da_g_bytes_unref_to_data g_bytes_unref_to_data; 
-    da_g_bytes_unref_to_array g_bytes_unref_to_array; 
-    da_g_bytes_hash g_bytes_hash; 
-    da_g_bytes_equal g_bytes_equal; 
-    da_g_bytes_compare g_bytes_compare; 
+    extern( C ) nothrow 
+    {
+        alias da_g_bytes_new = GBytes* function(gconstpointer data, gsize size);																		
+        alias da_g_bytes_new_take = GBytes* function(gpointer data, gsize size);																		
+        alias da_g_bytes_new_static = GBytes* function(gconstpointer data, gsize size);																	
+        alias da_g_bytes_new_with_free_func = GBytes* function(gconstpointer data, gsize size, GDestroyNotify free_func, gpointer user_data);			
+        alias da_g_bytes_new_from_bytes = GBytes* function(GBytes* bytes, gsize offset, gsize length);													
+        alias da_g_bytes_get_data = gconstpointer function(GBytes* bytes, gsize* size);																	
+        alias da_g_bytes_get_size = gsize function(GBytes* bytes);																						
+        alias da_g_bytes_ref = GBytes* function(GBytes* bytes);																							
+        alias da_g_bytes_unref = void function(GBytes* bytes);																							
+        alias da_g_bytes_unref_to_data = gpointer function(GBytes* bytes, gsize* size);																	
+        alias da_g_bytes_unref_to_array = GByteArray* function(GBytes* bytes);																			
+        alias da_g_bytes_hash = guint function(gconstpointer bytes);																					
+        alias da_g_bytes_equal = gboolean function(gconstpointer bytes1, gconstpointer bytes2);															
+        alias da_g_bytes_compare = gint function(gconstpointer bytes1, gconstpointer bytes2);															
+    }
+
+    __gshared
+    {
+        da_g_bytes_new g_bytes_new; 
+        da_g_bytes_new_take g_bytes_new_take; 
+        da_g_bytes_new_static g_bytes_new_static; 
+        da_g_bytes_new_with_free_func g_bytes_new_with_free_func; 
+        da_g_bytes_new_from_bytes g_bytes_new_from_bytes; 
+        da_g_bytes_get_data g_bytes_get_data; 
+        da_g_bytes_get_size g_bytes_get_size; 
+        da_g_bytes_ref g_bytes_ref; 
+        da_g_bytes_unref g_bytes_unref; 
+        da_g_bytes_unref_to_data g_bytes_unref_to_data; 
+        da_g_bytes_unref_to_array g_bytes_unref_to_array; 
+        da_g_bytes_hash g_bytes_hash; 
+        da_g_bytes_equal g_bytes_equal; 
+        da_g_bytes_compare g_bytes_compare; 
+    }
 }

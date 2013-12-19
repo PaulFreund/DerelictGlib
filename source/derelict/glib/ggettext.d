@@ -34,22 +34,37 @@ import core.stdc.config;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_strip_context = const(gchar)* function(const(gchar)* msgid, const(gchar)* msgval);										
-    alias da_g_dgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid);											
-    alias da_g_dcgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid, gint category);							
-    alias da_g_dngettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid, const(gchar)* msgid_plural, gulong n);		
-    alias da_g_dpgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgctxtid, gsize msgidoffset);					
-    alias da_g_dpgettext2 = const(gchar)* function(const(gchar)* domain, const(gchar)* context, const(gchar)* msgid);					
+    extern( C ) nothrow 
+    {
+        const(gchar)* g_strip_context(const(gchar)* msgid, const(gchar)* msgval);
+        const(gchar)* g_dgettext(const(gchar)* domain, const(gchar)* msgid);
+        const(gchar)* g_dcgettext(const(gchar)* domain, const(gchar)* msgid, gint category);
+        const(gchar)* g_dngettext(const(gchar)* domain, const(gchar)* msgid, const(gchar)* msgid_plural, gulong n);
+        const(gchar)* g_dpgettext(const(gchar)* domain, const(gchar)* msgctxtid, gsize msgidoffset);
+        const(gchar)* g_dpgettext2(const(gchar)* domain, const(gchar)* context, const(gchar)* msgid);
+    }
 }
-
-__gshared
+else
 {
-    da_g_strip_context g_strip_context; 
-    da_g_dgettext g_dgettext; 
-    da_g_dcgettext g_dcgettext; 
-    da_g_dngettext g_dngettext; 
-    da_g_dpgettext g_dpgettext; 
-    da_g_dpgettext2 g_dpgettext2; 
+    extern( C ) nothrow 
+    {
+        alias da_g_strip_context = const(gchar)* function(const(gchar)* msgid, const(gchar)* msgval);										
+        alias da_g_dgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid);											
+        alias da_g_dcgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid, gint category);							
+        alias da_g_dngettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgid, const(gchar)* msgid_plural, gulong n);		
+        alias da_g_dpgettext = const(gchar)* function(const(gchar)* domain, const(gchar)* msgctxtid, gsize msgidoffset);					
+        alias da_g_dpgettext2 = const(gchar)* function(const(gchar)* domain, const(gchar)* context, const(gchar)* msgid);					
+    }
+
+    __gshared
+    {
+        da_g_strip_context g_strip_context; 
+        da_g_dgettext g_dgettext; 
+        da_g_dcgettext g_dcgettext; 
+        da_g_dngettext g_dngettext; 
+        da_g_dpgettext g_dpgettext; 
+        da_g_dpgettext2 g_dpgettext2; 
+    }
 }

@@ -33,19 +33,33 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_uri_unescape_string = char* function(const(char)* escaped_string, const(char)* illegal_characters);												
-    alias da_g_uri_unescape_segment = char* function(const(char)* escaped_string, const(char)* escaped_string_end, const(char)* illegal_characters);			
-    alias da_g_uri_parse_scheme = char* function(const(char)* uri);																								
-    alias da_g_uri_escape_string = char* function(const(char)* unescaped, const(char)* reserved_chars_allowed, gboolean allow_utf8);							
+    extern( C ) nothrow 
+    {
+        char* g_uri_unescape_string(const(char)* escaped_string, const(char)* illegal_characters);
+        char* g_uri_unescape_segment(const(char)* escaped_string, const(char)* escaped_string_end, const(char)* illegal_characters);
+        char* g_uri_parse_scheme(const(char)* uri);
+        char* g_uri_escape_string(const(char)* unescaped, const(char)* reserved_chars_allowed, gboolean allow_utf8);
 
+    }
 }
-
-__gshared
+else
 {
-    da_g_uri_unescape_string g_uri_unescape_string; 
-    da_g_uri_unescape_segment g_uri_unescape_segment; 
-    da_g_uri_parse_scheme g_uri_parse_scheme; 
-    da_g_uri_escape_string g_uri_escape_string; 	
+    extern( C ) nothrow 
+    {
+        alias da_g_uri_unescape_string = char* function(const(char)* escaped_string, const(char)* illegal_characters);												
+        alias da_g_uri_unescape_segment = char* function(const(char)* escaped_string, const(char)* escaped_string_end, const(char)* illegal_characters);			
+        alias da_g_uri_parse_scheme = char* function(const(char)* uri);																								
+        alias da_g_uri_escape_string = char* function(const(char)* unescaped, const(char)* reserved_chars_allowed, gboolean allow_utf8);							
+
+    }
+
+    __gshared
+    {
+        da_g_uri_unescape_string g_uri_unescape_string; 
+        da_g_uri_unescape_segment g_uri_unescape_segment; 
+        da_g_uri_parse_scheme g_uri_parse_scheme; 
+        da_g_uri_escape_string g_uri_escape_string; 	
+    }
 }

@@ -52,49 +52,71 @@ enum _Anonymous_0
 	G_LOG_LEVEL_MASK = -4
 }
 
-																								
 
-
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-	alias da_g_printf_string_upper_bound = gsize function(const(gchar)* format, va_list args);																				
-    alias da_g_log_set_handler = guint function(const(gchar)* log_domain, GLogLevelFlags log_levels, GLogFunc log_func, gpointer user_data);								
-    alias da_g_log_remove_handler = void function(const(gchar)* log_domain, guint handler_id);																				
-    alias da_g_log_default_handler = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);						
-    alias da_g_log_set_default_handler = GLogFunc function(GLogFunc log_func, gpointer user_data);																			
-    alias da_g_log = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, ...);															
-    alias da_g_logv = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, va_list args);												
-    alias da_g_log_set_fatal_mask = GLogLevelFlags function(const(gchar)* log_domain, GLogLevelFlags fatal_mask);															
-    alias da_g_log_set_always_fatal = GLogLevelFlags function(GLogLevelFlags fatal_mask);																					
-    alias da__g_log_fallback_handler = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);						
-    alias da_g_return_if_fail_warning = void function(const(char)* log_domain, const(char)* pretty_function, const(char)* expression);										
-    alias da_g_warn_message = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* warnexpr);									
-    alias da_g_assert_warning = void function(const(char)* log_domain, const(char)* file, const int line, const(char)* pretty_function, const(char)* expression);			
-    alias da_g_print = void function(const(gchar)* format, ...);																											
-    alias da_g_set_print_handler = GPrintFunc function(GPrintFunc func);																									
-    alias da_g_printerr = void function(const(gchar)* format, ...);																											
-    alias da_g_set_printerr_handler = GPrintFunc function(GPrintFunc func);	
+    extern( C ) nothrow 
+    {
+	    gsize g_printf_string_upper_bound(const(gchar)* format, va_list args);
+        guint g_log_set_handler(const(gchar)* log_domain, GLogLevelFlags log_levels, GLogFunc log_func, gpointer user_data);
+        void g_log_remove_handler(const(gchar)* log_domain, guint handler_id);
+        void g_log_default_handler(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);
+        GLogFunc g_log_set_default_handler(GLogFunc log_func, gpointer user_data);
+        void g_log(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, ...);
+        void g_logv(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, va_list args);
+        GLogLevelFlags g_log_set_fatal_mask(const(gchar)* log_domain, GLogLevelFlags fatal_mask);
+        GLogLevelFlags g_log_set_always_fatal(GLogLevelFlags fatal_mask);
+        void _g_log_fallback_handler(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);
+        void g_return_if_fail_warning(const(char)* log_domain, const(char)* pretty_function, const(char)* expression);
+        void g_warn_message(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* warnexpr);
+        void g_assert_warning(const(char)* log_domain, const(char)* file, const int line, const(char)* pretty_function, const(char)* expression);
+        void g_print(const(gchar)* format, ...);
+        GPrintFunc g_set_print_handler(GPrintFunc func);
+        void g_printerr(const(gchar)* format, ...);
+        GPrintFunc g_set_printerr_handler(GPrintFunc func);
+    }
 }
-
-__gshared
+else
 {
-	da_g_printf_string_upper_bound g_printf_string_upper_bound; 
-    da_g_log_set_handler g_log_set_handler; 
-    da_g_log_remove_handler g_log_remove_handler; 
-    da_g_log_default_handler g_log_default_handler; 
-    da_g_log_set_default_handler g_log_set_default_handler; 
-    da_g_log g_log; 
-    da_g_logv g_logv; 
-    da_g_log_set_fatal_mask g_log_set_fatal_mask; 
-    da_g_log_set_always_fatal g_log_set_always_fatal; 
-    da__g_log_fallback_handler _g_log_fallback_handler; 
-    da_g_return_if_fail_warning g_return_if_fail_warning; 
-    da_g_warn_message g_warn_message; 
-    da_g_assert_warning g_assert_warning; 
-    da_g_print g_print; 
-    da_g_set_print_handler g_set_print_handler; 
-    da_g_printerr g_printerr; 
-    da_g_set_printerr_handler g_set_printerr_handler; 
+    extern( C ) nothrow 
+    {
+	    alias da_g_printf_string_upper_bound = gsize function(const(gchar)* format, va_list args);																				
+        alias da_g_log_set_handler = guint function(const(gchar)* log_domain, GLogLevelFlags log_levels, GLogFunc log_func, gpointer user_data);								
+        alias da_g_log_remove_handler = void function(const(gchar)* log_domain, guint handler_id);																				
+        alias da_g_log_default_handler = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);						
+        alias da_g_log_set_default_handler = GLogFunc function(GLogFunc log_func, gpointer user_data);																			
+        alias da_g_log = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, ...);															
+        alias da_g_logv = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* format, va_list args);												
+        alias da_g_log_set_fatal_mask = GLogLevelFlags function(const(gchar)* log_domain, GLogLevelFlags fatal_mask);															
+        alias da_g_log_set_always_fatal = GLogLevelFlags function(GLogLevelFlags fatal_mask);																					
+        alias da__g_log_fallback_handler = void function(const(gchar)* log_domain, GLogLevelFlags log_level, const(gchar)* message, gpointer unused_data);						
+        alias da_g_return_if_fail_warning = void function(const(char)* log_domain, const(char)* pretty_function, const(char)* expression);										
+        alias da_g_warn_message = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* warnexpr);									
+        alias da_g_assert_warning = void function(const(char)* log_domain, const(char)* file, const int line, const(char)* pretty_function, const(char)* expression);			
+        alias da_g_print = void function(const(gchar)* format, ...);																											
+        alias da_g_set_print_handler = GPrintFunc function(GPrintFunc func);																									
+        alias da_g_printerr = void function(const(gchar)* format, ...);																											
+        alias da_g_set_printerr_handler = GPrintFunc function(GPrintFunc func);	
+    }
+
+    __gshared
+    {
+	    da_g_printf_string_upper_bound g_printf_string_upper_bound; 
+        da_g_log_set_handler g_log_set_handler; 
+        da_g_log_remove_handler g_log_remove_handler; 
+        da_g_log_default_handler g_log_default_handler; 
+        da_g_log_set_default_handler g_log_set_default_handler; 
+        da_g_log g_log; 
+        da_g_logv g_logv; 
+        da_g_log_set_fatal_mask g_log_set_fatal_mask; 
+        da_g_log_set_always_fatal g_log_set_always_fatal; 
+        da__g_log_fallback_handler _g_log_fallback_handler; 
+        da_g_return_if_fail_warning g_return_if_fail_warning; 
+        da_g_warn_message g_warn_message; 
+        da_g_assert_warning g_assert_warning; 
+        da_g_print g_print; 
+        da_g_set_print_handler g_set_print_handler; 
+        da_g_printerr g_printerr; 
+        da_g_set_printerr_handler g_set_printerr_handler; 
+    }
 }
-
-

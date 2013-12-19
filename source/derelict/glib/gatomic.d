@@ -34,44 +34,70 @@ import core.stdc.config;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_atomic_int_get = gint function(gint* atomic);																
-    alias da_g_atomic_int_set = void function(gint* atomic, gint newval);													
-    alias da_g_atomic_int_inc = void function(gint* atomic);																
-    alias da_g_atomic_int_dec_and_test = gboolean function(gint* atomic);													
-    alias da_g_atomic_int_compare_and_exchange = gboolean function(gint* atomic, gint oldval, gint newval);					
-    alias da_g_atomic_int_add = gint function(gint* atomic, gint val);														
-    alias da_g_atomic_int_and = guint function(guint* atomic, guint val);													
-    alias da_g_atomic_int_or = guint function(guint* atomic, guint val);													
-    alias da_g_atomic_int_xor = guint function(guint* atomic, guint val);													
-    alias da_g_atomic_pointer_get = gpointer function(void* atomic);														
-    alias da_g_atomic_pointer_set = void function(void* atomic, gpointer newval);											
-    alias da_g_atomic_pointer_compare_and_exchange = gboolean function(void* atomic, gpointer oldval, gpointer newval);		
-    alias da_g_atomic_pointer_add = gssize function(void* atomic, gssize val);												
-    alias da_g_atomic_pointer_and = gsize function(void* atomic, gsize val);												
-    alias da_g_atomic_pointer_or = gsize function(void* atomic, gsize val);													
-    alias da_g_atomic_pointer_xor = gsize function(void* atomic, gsize val);												
-    alias da_g_atomic_int_exchange_and_add = gint function(gint* atomic, gint val);											
+    extern( C ) nothrow 
+    {
+        gint g_atomic_int_get(gint* atomic);
+        void g_atomic_int_set(gint* atomic, gint newval);
+        void g_atomic_int_inc(gint* atomic);
+        gboolean g_atomic_int_dec_and_test(gint* atomic);
+        gboolean g_atomic_int_compare_and_exchange(gint* atomic, gint oldval, gint newval);
+        gint g_atomic_int_add(gint* atomic, gint val);
+        guint g_atomic_int_and(guint* atomic, guint val);
+        guint g_atomic_int_or(guint* atomic, guint val);
+        guint g_atomic_int_xor(guint* atomic, guint val);
+        gpointer g_atomic_pointer_get(void* atomic);
+        void g_atomic_pointer_set(void* atomic, gpointer newval);
+        gboolean g_atomic_pointer_compare_and_exchange(void* atomic, gpointer oldval, gpointer newval);
+        gssize g_atomic_pointer_add(void* atomic, gssize val);
+        gsize g_atomic_pointer_and(void* atomic, gsize val);
+        gsize g_atomic_pointer_or(void* atomic, gsize val);
+        gsize g_atomic_pointer_xor(void* atomic, gsize val);
+        gint g_atomic_int_exchange_and_add(gint* atomic, gint val);
+    }
 }
-
-__gshared 
+else
 {
-    da_g_atomic_int_get g_atomic_int_get; 
-    da_g_atomic_int_set g_atomic_int_set; 
-    da_g_atomic_int_inc g_atomic_int_inc; 
-    da_g_atomic_int_dec_and_test g_atomic_int_dec_and_test; 
-    da_g_atomic_int_compare_and_exchange g_atomic_int_compare_and_exchange; 
-    da_g_atomic_int_add g_atomic_int_add; 
-    da_g_atomic_int_and g_atomic_int_and; 
-    da_g_atomic_int_or g_atomic_int_or; 
-    da_g_atomic_int_xor g_atomic_int_xor; 
-    da_g_atomic_pointer_get g_atomic_pointer_get; 
-    da_g_atomic_pointer_set g_atomic_pointer_set; 
-    da_g_atomic_pointer_compare_and_exchange g_atomic_pointer_compare_and_exchange; 
-    da_g_atomic_pointer_add g_atomic_pointer_add; 
-    da_g_atomic_pointer_and g_atomic_pointer_and; 
-    da_g_atomic_pointer_or g_atomic_pointer_or; 
-    da_g_atomic_pointer_xor g_atomic_pointer_xor; 
-    da_g_atomic_int_exchange_and_add g_atomic_int_exchange_and_add; 
+    extern( C ) nothrow 
+    {
+        alias da_g_atomic_int_get = gint function(gint* atomic);																
+        alias da_g_atomic_int_set = void function(gint* atomic, gint newval);													
+        alias da_g_atomic_int_inc = void function(gint* atomic);																
+        alias da_g_atomic_int_dec_and_test = gboolean function(gint* atomic);													
+        alias da_g_atomic_int_compare_and_exchange = gboolean function(gint* atomic, gint oldval, gint newval);					
+        alias da_g_atomic_int_add = gint function(gint* atomic, gint val);														
+        alias da_g_atomic_int_and = guint function(guint* atomic, guint val);													
+        alias da_g_atomic_int_or = guint function(guint* atomic, guint val);													
+        alias da_g_atomic_int_xor = guint function(guint* atomic, guint val);													
+        alias da_g_atomic_pointer_get = gpointer function(void* atomic);														
+        alias da_g_atomic_pointer_set = void function(void* atomic, gpointer newval);											
+        alias da_g_atomic_pointer_compare_and_exchange = gboolean function(void* atomic, gpointer oldval, gpointer newval);		
+        alias da_g_atomic_pointer_add = gssize function(void* atomic, gssize val);												
+        alias da_g_atomic_pointer_and = gsize function(void* atomic, gsize val);												
+        alias da_g_atomic_pointer_or = gsize function(void* atomic, gsize val);													
+        alias da_g_atomic_pointer_xor = gsize function(void* atomic, gsize val);												
+        alias da_g_atomic_int_exchange_and_add = gint function(gint* atomic, gint val);											
+    }
+
+    __gshared 
+    {
+        da_g_atomic_int_get g_atomic_int_get; 
+        da_g_atomic_int_set g_atomic_int_set; 
+        da_g_atomic_int_inc g_atomic_int_inc; 
+        da_g_atomic_int_dec_and_test g_atomic_int_dec_and_test; 
+        da_g_atomic_int_compare_and_exchange g_atomic_int_compare_and_exchange; 
+        da_g_atomic_int_add g_atomic_int_add; 
+        da_g_atomic_int_and g_atomic_int_and; 
+        da_g_atomic_int_or g_atomic_int_or; 
+        da_g_atomic_int_xor g_atomic_int_xor; 
+        da_g_atomic_pointer_get g_atomic_pointer_get; 
+        da_g_atomic_pointer_set g_atomic_pointer_set; 
+        da_g_atomic_pointer_compare_and_exchange g_atomic_pointer_compare_and_exchange; 
+        da_g_atomic_pointer_add g_atomic_pointer_add; 
+        da_g_atomic_pointer_and g_atomic_pointer_and; 
+        da_g_atomic_pointer_or g_atomic_pointer_or; 
+        da_g_atomic_pointer_xor g_atomic_pointer_xor; 
+        da_g_atomic_int_exchange_and_add g_atomic_int_exchange_and_add; 
+    }
 }

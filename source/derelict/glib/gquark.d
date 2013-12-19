@@ -38,22 +38,37 @@ alias uint GQuark;
 		
 
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_quark_try_string = GQuark function(const(gchar)* string);				
-    alias da_g_quark_from_static_string = GQuark function(const(gchar)* string);		
-    alias da_g_quark_from_string = GQuark function(const(gchar)* string);				
-    alias da_g_quark_to_string = const(gchar)* function(GQuark quark);					
-    alias da_g_intern_string = const(gchar)* function(const(gchar)* string);			
-    alias da_g_intern_static_string = const(gchar)* function(const(gchar)* string);	
+    extern( C ) nothrow 
+    {
+        GQuark g_quark_try_string(const(gchar)* string);
+        GQuark g_quark_from_static_string(const(gchar)* string);
+        GQuark g_quark_from_string(const(gchar)* string);
+        const(gchar)* g_quark_to_string(GQuark quark);
+        const(gchar)* g_intern_string(const(gchar)* string);
+        const(gchar)* g_intern_static_string(const(gchar)* string);
+    }
 }
-
-__gshared
+else
 {
-    da_g_quark_try_string g_quark_try_string; 
-    da_g_quark_from_static_string g_quark_from_static_string; 
-    da_g_quark_from_string g_quark_from_string; 
-    da_g_quark_to_string g_quark_to_string; 
-    da_g_intern_string g_intern_string; 
-    da_g_intern_static_string g_intern_static_string; 
+    extern( C ) nothrow 
+    {
+        alias da_g_quark_try_string = GQuark function(const(gchar)* string);				
+        alias da_g_quark_from_static_string = GQuark function(const(gchar)* string);		
+        alias da_g_quark_from_string = GQuark function(const(gchar)* string);				
+        alias da_g_quark_to_string = const(gchar)* function(GQuark quark);					
+        alias da_g_intern_string = const(gchar)* function(const(gchar)* string);			
+        alias da_g_intern_static_string = const(gchar)* function(const(gchar)* string);	
+    }
+
+    __gshared
+    {
+        da_g_quark_try_string g_quark_try_string; 
+        da_g_quark_from_static_string g_quark_from_static_string; 
+        da_g_quark_from_string g_quark_from_string; 
+        da_g_quark_to_string g_quark_to_string; 
+        da_g_intern_string g_intern_string; 
+        da_g_intern_static_string g_intern_static_string; 
+    }
 }

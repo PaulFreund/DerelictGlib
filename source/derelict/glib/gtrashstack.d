@@ -40,18 +40,31 @@ struct _GTrashStack
 	GTrashStack* next;
 }
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-	alias da_g_trash_stack_push = void function(GTrashStack** stack_p, gpointer data_p);		
-    alias da_g_trash_stack_pop = gpointer function(GTrashStack** stack_p);						
-    alias da_g_trash_stack_peek = gpointer function(GTrashStack** stack_p);						
-    alias da_g_trash_stack_height = guint function(GTrashStack** stack_p);	
+    extern( C ) nothrow 
+    {
+	    void g_trash_stack_push(GTrashStack** stack_p, gpointer data_p);
+        gpointer g_trash_stack_pop(GTrashStack** stack_p);
+        gpointer g_trash_stack_peek(GTrashStack** stack_p);
+        guint g_trash_stack_height(GTrashStack** stack_p);
+    }
 }
-
-__gshared
+else
 {
-    da_g_trash_stack_push g_trash_stack_push;
-    da_g_trash_stack_pop g_trash_stack_pop;
-    da_g_trash_stack_peek g_trash_stack_peek;
-    da_g_trash_stack_height g_trash_stack_height;
+    extern( C ) nothrow 
+    {
+	    alias da_g_trash_stack_push = void function(GTrashStack** stack_p, gpointer data_p);		
+        alias da_g_trash_stack_pop = gpointer function(GTrashStack** stack_p);						
+        alias da_g_trash_stack_peek = gpointer function(GTrashStack** stack_p);						
+        alias da_g_trash_stack_height = guint function(GTrashStack** stack_p);	
+    }
+
+    __gshared
+    {
+        da_g_trash_stack_push g_trash_stack_push;
+        da_g_trash_stack_pop g_trash_stack_pop;
+        da_g_trash_stack_peek g_trash_stack_peek;
+        da_g_trash_stack_height g_trash_stack_height;
+    }
 }

@@ -38,18 +38,31 @@ alias _GDir GDir;
 
 struct _GDir;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_dir_open = GDir* function(const(gchar)* path, guint flags, GError** error);	
-    alias da_g_dir_read_name = const(gchar)* function(GDir* dir);							
-    alias da_g_dir_rewind = void function(GDir* dir);										
-    alias da_g_dir_close = void function(GDir* dir);										
+    extern( C ) nothrow 
+    {
+        GDir* g_dir_open(const(gchar)* path, guint flags, GError** error);
+        const(gchar)* g_dir_read_name(GDir* dir);
+        void g_dir_rewind(GDir* dir);
+        void g_dir_close(GDir* dir);
+    }
 }
-
-__gshared
+else
 {
-    da_g_dir_open g_dir_open; 
-    da_g_dir_read_name g_dir_read_name; 
-    da_g_dir_rewind g_dir_rewind; 
-    da_g_dir_close g_dir_close; 
+    extern( C ) nothrow 
+    {
+        alias da_g_dir_open = GDir* function(const(gchar)* path, guint flags, GError** error);	
+        alias da_g_dir_read_name = const(gchar)* function(GDir* dir);							
+        alias da_g_dir_rewind = void function(GDir* dir);										
+        alias da_g_dir_close = void function(GDir* dir);										
+    }
+
+    __gshared
+    {
+        da_g_dir_open g_dir_open; 
+        da_g_dir_read_name g_dir_read_name; 
+        da_g_dir_rewind g_dir_rewind; 
+        da_g_dir_close g_dir_close; 
+    }
 }

@@ -35,22 +35,31 @@ import std.file;
 
 extern (C):
 
-//alias statBuf GStatBuf;
-
-
-
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_access = int function(const(gchar)* filename, int mode);																																																		
-    alias da_g_chdir = int function(const(gchar)* path);																																																					
-    alias da_g_unlink = int function(const(gchar)* filename);																																																				
-    alias da_g_rmdir = int function(const(gchar)* filename);																																																				
+    extern( C ) nothrow 
+    {
+        int g_access(const(gchar)* filename, int mode);
+        int g_chdir(const(gchar)* path);
+        int g_unlink(const(gchar)* filename);
+        int g_rmdir(const(gchar)* filename);
+    }
 }
-
-__gshared
+else
 {
-    da_g_access g_access; 
-    da_g_chdir g_chdir; 
-    da_g_unlink g_unlink; 
-    da_g_rmdir g_rmdir; 	
+    extern( C ) nothrow 
+    {
+        alias da_g_access = int function(const(gchar)* filename, int mode);																																																		
+        alias da_g_chdir = int function(const(gchar)* path);																																																					
+        alias da_g_unlink = int function(const(gchar)* filename);																																																				
+        alias da_g_rmdir = int function(const(gchar)* filename);																																																				
+    }
+
+    __gshared
+    {
+        da_g_access g_access; 
+        da_g_chdir g_chdir; 
+        da_g_unlink g_unlink; 
+        da_g_rmdir g_rmdir; 	
+    }
 }

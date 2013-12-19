@@ -35,34 +35,40 @@ import std.c.stdarg;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_printf = gint function(const(gchar)* format, ...);									
-    alias da_g_fprintf = gint function(FILE* file, const(gchar)* format, ...);						
-    alias da_g_sprintf = gint function(gchar* string, const(gchar)* format, ...);					
-    alias da_g_vprintf = gint function(const(gchar)* format, va_list args);							
-    alias da_g_vfprintf = gint function(FILE* file, const(gchar)* format, va_list args);			
-    alias da_g_vsprintf = gint function(gchar* string, const(gchar)* format, va_list args);			
-    alias da_g_vasprintf = gint function(gchar** string, const(gchar)* format, va_list args);			
+    extern( C ) nothrow 
+    {
+        gint g_printf(const(gchar)* format, ...);
+        gint g_fprintf(FILE* file, const(gchar)* format, ...);
+        gint g_sprintf(gchar* string, const(gchar)* format, ...);
+        gint g_vprintf(const(gchar)* format, va_list args);
+        gint g_vfprintf(FILE* file, const(gchar)* format, va_list args);
+        gint g_vsprintf(gchar* string, const(gchar)* format, va_list args);
+        gint g_vasprintf(gchar** string, const(gchar)* format, va_list args);
+    }
 }
-
-__gshared
+else
 {
-    da_g_printf g_printf; 
-    da_g_fprintf g_fprintf; 
-    da_g_sprintf g_sprintf; 
-    da_g_vprintf g_vprintf; 
-    da_g_vfprintf g_vfprintf; 
-    da_g_vsprintf g_vsprintf; 
-    da_g_vasprintf g_vasprintf; 
+    extern( C ) nothrow 
+    {
+        alias da_g_printf = gint function(const(gchar)* format, ...);									
+        alias da_g_fprintf = gint function(FILE* file, const(gchar)* format, ...);						
+        alias da_g_sprintf = gint function(gchar* string, const(gchar)* format, ...);					
+        alias da_g_vprintf = gint function(const(gchar)* format, va_list args);							
+        alias da_g_vfprintf = gint function(FILE* file, const(gchar)* format, va_list args);			
+        alias da_g_vsprintf = gint function(gchar* string, const(gchar)* format, va_list args);			
+        alias da_g_vasprintf = gint function(gchar** string, const(gchar)* format, va_list args);			
+    }
+
+    __gshared
+    {
+        da_g_printf g_printf; 
+        da_g_fprintf g_fprintf; 
+        da_g_sprintf g_sprintf; 
+        da_g_vprintf g_vprintf; 
+        da_g_vfprintf g_vfprintf; 
+        da_g_vsprintf g_vsprintf; 
+        da_g_vasprintf g_vasprintf; 
+    }
 }
-
-
-
-
-
-
-
-
-
-

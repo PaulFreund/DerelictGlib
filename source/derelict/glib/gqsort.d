@@ -34,12 +34,22 @@ import core.stdc.config;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_qsort_with_data = void function(gconstpointer pbase, gint total_elems, gsize size, GCompareDataFunc compare_func, gpointer user_data);
+    extern( C ) nothrow 
+    {
+        void g_qsort_with_data(gconstpointer pbase, gint total_elems, gsize size, GCompareDataFunc compare_func, gpointer user_data);
+    }
 }
-
-__gshared
+else
 {
-    da_g_qsort_with_data g_qsort_with_data;
+    extern( C ) nothrow 
+    {
+        alias da_g_qsort_with_data = void function(gconstpointer pbase, gint total_elems, gsize size, GCompareDataFunc compare_func, gpointer user_data);
+    }
+
+    __gshared
+    {
+        da_g_qsort_with_data g_qsort_with_data;
+    }
 }

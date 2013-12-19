@@ -42,90 +42,139 @@ struct _GQueue
 	guint length;
 }													
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_queue_new = GQueue* function();																						
-    alias da_g_queue_free = void function(GQueue* queue);																			
-    alias da_g_queue_free_full = void function(GQueue* queue, GDestroyNotify free_func);											
-    alias da_g_queue_init = void function(GQueue* queue);																			
-    alias da_g_queue_clear = void function(GQueue* queue);																			
-    alias da_g_queue_is_empty = gboolean function(GQueue* queue);																	
-    alias da_g_queue_get_length = guint function(GQueue* queue);																	
-    alias da_g_queue_reverse = void function(GQueue* queue);																		
-    alias da_g_queue_copy = GQueue* function(GQueue* queue);																		
-    alias da_g_queue_foreach = void function(GQueue* queue, GFunc func, gpointer user_data);										
-    alias da_g_queue_find = GList* function(GQueue* queue, gconstpointer data);														
-    alias da_g_queue_find_custom = GList* function(GQueue* queue, gconstpointer data, GCompareFunc func);							
-    alias da_g_queue_sort = void function(GQueue* queue, GCompareDataFunc compare_func, gpointer user_data);						
-    alias da_g_queue_push_head = void function(GQueue* queue, gpointer data);														
-    alias da_g_queue_push_tail = void function(GQueue* queue, gpointer data);														
-    alias da_g_queue_push_nth = void function(GQueue* queue, gpointer data, gint n);												
-    alias da_g_queue_pop_head = gpointer function(GQueue* queue);																	
-    alias da_g_queue_pop_tail = gpointer function(GQueue* queue);																	
-    alias da_g_queue_pop_nth = gpointer function(GQueue* queue, guint n);															
-    alias da_g_queue_peek_head = gpointer function(GQueue* queue);																	
-    alias da_g_queue_peek_tail = gpointer function(GQueue* queue);																	
-    alias da_g_queue_peek_nth = gpointer function(GQueue* queue, guint n);															
-    alias da_g_queue_index = gint function(GQueue* queue, gconstpointer data);														
-    alias da_g_queue_remove = gboolean function(GQueue* queue, gconstpointer data);													
-    alias da_g_queue_remove_all = guint function(GQueue* queue, gconstpointer data);												
-    alias da_g_queue_insert_before = void function(GQueue* queue, GList* sibling, gpointer data);									
-    alias da_g_queue_insert_after = void function(GQueue* queue, GList* sibling, gpointer data);									
-    alias da_g_queue_insert_sorted = void function(GQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);		
-    alias da_g_queue_push_head_link = void function(GQueue* queue, GList* link_);													
-    alias da_g_queue_push_tail_link = void function(GQueue* queue, GList* link_);													
-    alias da_g_queue_push_nth_link = void function(GQueue* queue, gint n, GList* link_);											
-    alias da_g_queue_pop_head_link = GList* function(GQueue* queue);																
-    alias da_g_queue_pop_tail_link = GList* function(GQueue* queue);																
-    alias da_g_queue_pop_nth_link = GList* function(GQueue* queue, guint n);														
-    alias da_g_queue_peek_head_link = GList* function(GQueue* queue);																
-    alias da_g_queue_peek_tail_link = GList* function(GQueue* queue);																
-    alias da_g_queue_peek_nth_link = GList* function(GQueue* queue, guint n);														
-    alias da_g_queue_link_index = gint function(GQueue* queue, GList* link_);														
-    alias da_g_queue_unlink = void function(GQueue* queue, GList* link_);															
-    alias da_g_queue_delete_link = void function(GQueue* queue, GList* link_);		
+    extern( C ) nothrow 
+    {
+        GQueue* g_queue_new();
+        void g_queue_free(GQueue* queue);
+        void g_queue_free_full(GQueue* queue, GDestroyNotify free_func);
+        void g_queue_init(GQueue* queue);
+        void g_queue_clear(GQueue* queue);
+        gboolean g_queue_is_empty(GQueue* queue);
+        guint g_queue_get_length(GQueue* queue);
+        void g_queue_reverse(GQueue* queue);
+        GQueue* g_queue_copy(GQueue* queue);
+        void g_queue_foreach(GQueue* queue, GFunc func, gpointer user_data);
+        GList* g_queue_find(GQueue* queue, gconstpointer data);
+        GList* g_queue_find_custom(GQueue* queue, gconstpointer data, GCompareFunc func);
+        void g_queue_sort(GQueue* queue, GCompareDataFunc compare_func, gpointer user_data);
+        void g_queue_push_head(GQueue* queue, gpointer data);
+        void g_queue_push_tail(GQueue* queue, gpointer data);
+        void g_queue_push_nth(GQueue* queue, gpointer data, gint n);
+        gpointer g_queue_pop_head(GQueue* queue);
+        gpointer g_queue_pop_tail(GQueue* queue);
+        gpointer g_queue_pop_nth(GQueue* queue, guint n);
+        gpointer g_queue_peek_head(GQueue* queue);
+        gpointer g_queue_peek_tail(GQueue* queue);
+        gpointer g_queue_peek_nth(GQueue* queue, guint n);
+        gint g_queue_index(GQueue* queue, gconstpointer data);
+        gboolean g_queue_remove(GQueue* queue, gconstpointer data);
+        guint g_queue_remove_all(GQueue* queue, gconstpointer data);
+        void g_queue_insert_before(GQueue* queue, GList* sibling, gpointer data);
+        void g_queue_insert_after(GQueue* queue, GList* sibling, gpointer data);
+        void g_queue_insert_sorted(GQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);
+        void g_queue_push_head_link(GQueue* queue, GList* link_);
+        void g_queue_push_tail_link(GQueue* queue, GList* link_);
+        void g_queue_push_nth_link(GQueue* queue, gint n, GList* link_);
+        GList* g_queue_pop_head_link(GQueue* queue);
+        GList* g_queue_pop_tail_link(GQueue* queue);
+        GList* g_queue_pop_nth_link(GQueue* queue, guint n);
+        GList* g_queue_peek_head_link(GQueue* queue);
+        GList* g_queue_peek_tail_link(GQueue* queue);
+        GList* g_queue_peek_nth_link(GQueue* queue, guint n);
+        gint g_queue_link_index(GQueue* queue, GList* link_);
+        void g_queue_unlink(GQueue* queue, GList* link_);
+        void g_queue_delete_link(GQueue* queue, GList* link_);
+    }
 }
-
-__gshared
+else
 {
-    da_g_queue_new g_queue_new; 
-    da_g_queue_free g_queue_free; 
-    da_g_queue_free_full g_queue_free_full; 
-    da_g_queue_init g_queue_init; 
-    da_g_queue_clear g_queue_clear; 
-    da_g_queue_is_empty g_queue_is_empty; 
-    da_g_queue_get_length g_queue_get_length; 
-    da_g_queue_reverse g_queue_reverse; 
-    da_g_queue_copy g_queue_copy; 
-    da_g_queue_foreach g_queue_foreach; 
-    da_g_queue_find g_queue_find; 
-    da_g_queue_find_custom g_queue_find_custom; 
-    da_g_queue_sort g_queue_sort; 
-    da_g_queue_push_head g_queue_push_head; 
-    da_g_queue_push_tail g_queue_push_tail; 
-    da_g_queue_push_nth g_queue_push_nth; 
-    da_g_queue_pop_head g_queue_pop_head; 
-    da_g_queue_pop_tail g_queue_pop_tail; 
-    da_g_queue_pop_nth g_queue_pop_nth; 
-    da_g_queue_peek_head g_queue_peek_head; 
-    da_g_queue_peek_tail g_queue_peek_tail; 
-    da_g_queue_peek_nth g_queue_peek_nth; 
-    da_g_queue_index g_queue_index; 
-    da_g_queue_remove g_queue_remove; 
-    da_g_queue_remove_all g_queue_remove_all; 
-    da_g_queue_insert_before g_queue_insert_before; 
-    da_g_queue_insert_after g_queue_insert_after; 
-    da_g_queue_insert_sorted g_queue_insert_sorted; 
-    da_g_queue_push_head_link g_queue_push_head_link; 
-    da_g_queue_push_tail_link g_queue_push_tail_link; 
-    da_g_queue_push_nth_link g_queue_push_nth_link; 
-    da_g_queue_pop_head_link g_queue_pop_head_link; 
-    da_g_queue_pop_tail_link g_queue_pop_tail_link; 
-    da_g_queue_pop_nth_link g_queue_pop_nth_link; 
-    da_g_queue_peek_head_link g_queue_peek_head_link; 
-    da_g_queue_peek_tail_link g_queue_peek_tail_link; 
-    da_g_queue_peek_nth_link g_queue_peek_nth_link; 
-    da_g_queue_link_index g_queue_link_index; 
-    da_g_queue_unlink g_queue_unlink; 
-    da_g_queue_delete_link g_queue_delete_link; 
+    extern( C ) nothrow 
+    {
+        alias da_g_queue_new = GQueue* function();																						
+        alias da_g_queue_free = void function(GQueue* queue);																			
+        alias da_g_queue_free_full = void function(GQueue* queue, GDestroyNotify free_func);											
+        alias da_g_queue_init = void function(GQueue* queue);																			
+        alias da_g_queue_clear = void function(GQueue* queue);																			
+        alias da_g_queue_is_empty = gboolean function(GQueue* queue);																	
+        alias da_g_queue_get_length = guint function(GQueue* queue);																	
+        alias da_g_queue_reverse = void function(GQueue* queue);																		
+        alias da_g_queue_copy = GQueue* function(GQueue* queue);																		
+        alias da_g_queue_foreach = void function(GQueue* queue, GFunc func, gpointer user_data);										
+        alias da_g_queue_find = GList* function(GQueue* queue, gconstpointer data);														
+        alias da_g_queue_find_custom = GList* function(GQueue* queue, gconstpointer data, GCompareFunc func);							
+        alias da_g_queue_sort = void function(GQueue* queue, GCompareDataFunc compare_func, gpointer user_data);						
+        alias da_g_queue_push_head = void function(GQueue* queue, gpointer data);														
+        alias da_g_queue_push_tail = void function(GQueue* queue, gpointer data);														
+        alias da_g_queue_push_nth = void function(GQueue* queue, gpointer data, gint n);												
+        alias da_g_queue_pop_head = gpointer function(GQueue* queue);																	
+        alias da_g_queue_pop_tail = gpointer function(GQueue* queue);																	
+        alias da_g_queue_pop_nth = gpointer function(GQueue* queue, guint n);															
+        alias da_g_queue_peek_head = gpointer function(GQueue* queue);																	
+        alias da_g_queue_peek_tail = gpointer function(GQueue* queue);																	
+        alias da_g_queue_peek_nth = gpointer function(GQueue* queue, guint n);															
+        alias da_g_queue_index = gint function(GQueue* queue, gconstpointer data);														
+        alias da_g_queue_remove = gboolean function(GQueue* queue, gconstpointer data);													
+        alias da_g_queue_remove_all = guint function(GQueue* queue, gconstpointer data);												
+        alias da_g_queue_insert_before = void function(GQueue* queue, GList* sibling, gpointer data);									
+        alias da_g_queue_insert_after = void function(GQueue* queue, GList* sibling, gpointer data);									
+        alias da_g_queue_insert_sorted = void function(GQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);		
+        alias da_g_queue_push_head_link = void function(GQueue* queue, GList* link_);													
+        alias da_g_queue_push_tail_link = void function(GQueue* queue, GList* link_);													
+        alias da_g_queue_push_nth_link = void function(GQueue* queue, gint n, GList* link_);											
+        alias da_g_queue_pop_head_link = GList* function(GQueue* queue);																
+        alias da_g_queue_pop_tail_link = GList* function(GQueue* queue);																
+        alias da_g_queue_pop_nth_link = GList* function(GQueue* queue, guint n);														
+        alias da_g_queue_peek_head_link = GList* function(GQueue* queue);																
+        alias da_g_queue_peek_tail_link = GList* function(GQueue* queue);																
+        alias da_g_queue_peek_nth_link = GList* function(GQueue* queue, guint n);														
+        alias da_g_queue_link_index = gint function(GQueue* queue, GList* link_);														
+        alias da_g_queue_unlink = void function(GQueue* queue, GList* link_);															
+        alias da_g_queue_delete_link = void function(GQueue* queue, GList* link_);		
+    }
+
+    __gshared
+    {
+        da_g_queue_new g_queue_new; 
+        da_g_queue_free g_queue_free; 
+        da_g_queue_free_full g_queue_free_full; 
+        da_g_queue_init g_queue_init; 
+        da_g_queue_clear g_queue_clear; 
+        da_g_queue_is_empty g_queue_is_empty; 
+        da_g_queue_get_length g_queue_get_length; 
+        da_g_queue_reverse g_queue_reverse; 
+        da_g_queue_copy g_queue_copy; 
+        da_g_queue_foreach g_queue_foreach; 
+        da_g_queue_find g_queue_find; 
+        da_g_queue_find_custom g_queue_find_custom; 
+        da_g_queue_sort g_queue_sort; 
+        da_g_queue_push_head g_queue_push_head; 
+        da_g_queue_push_tail g_queue_push_tail; 
+        da_g_queue_push_nth g_queue_push_nth; 
+        da_g_queue_pop_head g_queue_pop_head; 
+        da_g_queue_pop_tail g_queue_pop_tail; 
+        da_g_queue_pop_nth g_queue_pop_nth; 
+        da_g_queue_peek_head g_queue_peek_head; 
+        da_g_queue_peek_tail g_queue_peek_tail; 
+        da_g_queue_peek_nth g_queue_peek_nth; 
+        da_g_queue_index g_queue_index; 
+        da_g_queue_remove g_queue_remove; 
+        da_g_queue_remove_all g_queue_remove_all; 
+        da_g_queue_insert_before g_queue_insert_before; 
+        da_g_queue_insert_after g_queue_insert_after; 
+        da_g_queue_insert_sorted g_queue_insert_sorted; 
+        da_g_queue_push_head_link g_queue_push_head_link; 
+        da_g_queue_push_tail_link g_queue_push_tail_link; 
+        da_g_queue_push_nth_link g_queue_push_nth_link; 
+        da_g_queue_pop_head_link g_queue_pop_head_link; 
+        da_g_queue_pop_tail_link g_queue_pop_tail_link; 
+        da_g_queue_pop_nth_link g_queue_pop_nth_link; 
+        da_g_queue_peek_head_link g_queue_peek_head_link; 
+        da_g_queue_peek_tail_link g_queue_peek_tail_link; 
+        da_g_queue_peek_nth_link g_queue_peek_nth_link; 
+        da_g_queue_link_index g_queue_link_index; 
+        da_g_queue_unlink g_queue_unlink; 
+        da_g_queue_delete_link g_queue_delete_link; 
+    }
 }

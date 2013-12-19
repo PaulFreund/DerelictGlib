@@ -33,18 +33,31 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_get_charset = gboolean function(const(char*)* charset);				
-    alias da_g_get_codeset = gchar* function();										
-    alias da_g_get_language_names = const(gchar*)* function();						
-    alias da_g_get_locale_variants = gchar** function(const(gchar)* locale);		
+    extern( C ) nothrow 
+    {
+        gboolean g_get_charset(const(char*)* charset);
+        gchar* g_get_codeset();
+        const(gchar*)* g_get_language_names();
+        gchar** g_get_locale_variants(const(gchar)* locale);
+    }
 }
-
-__gshared
+else
 {
-    da_g_get_charset g_get_charset; 
-    da_g_get_codeset g_get_codeset; 
-    da_g_get_language_names g_get_language_names; 
-    da_g_get_locale_variants g_get_locale_variants; 
+    extern( C ) nothrow 
+    {
+        alias da_g_get_charset = gboolean function(const(char*)* charset);				
+        alias da_g_get_codeset = gchar* function();										
+        alias da_g_get_language_names = const(gchar*)* function();						
+        alias da_g_get_locale_variants = gchar** function(const(gchar)* locale);		
+    }
+
+    __gshared
+    {
+        da_g_get_charset g_get_charset; 
+        da_g_get_codeset g_get_codeset; 
+        da_g_get_language_names g_get_language_names; 
+        da_g_get_locale_variants g_get_locale_variants; 
+    }
 }

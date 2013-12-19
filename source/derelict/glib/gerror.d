@@ -44,34 +44,55 @@ struct _GError
 	gchar* message;
 }
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_error_new = GError* function(GQuark domain, gint code, const(gchar)* format, ...);						
-    alias da_g_error_new_literal = GError* function(GQuark domain, gint code, const(gchar)* message);					
-    alias da_g_error_new_valist = GError* function(GQuark domain, gint code, const(gchar)* format, va_list args);		
-    alias da_g_error_free = void function(GError* error);																
-    alias da_g_error_copy = GError* function(const(GError)* error);														
-    alias da_g_error_matches = gboolean function(const(GError)* error, GQuark domain, gint code);						
-    alias da_g_set_error = void function(GError** err, GQuark domain, gint code, const(gchar)* format, ...);			
-    alias da_g_set_error_literal = void function(GError** err, GQuark domain, gint code, const(gchar)* message);		
-    alias da_g_propagate_error = void function(GError** dest, GError* src);												
-    alias da_g_clear_error = void function(GError** err);																
-    alias da_g_prefix_error = void function(GError** err, const(gchar)* format, ...);									
-    alias da_g_propagate_prefixed_error = void function(GError** dest, GError* src, const(gchar)* format, ...);			
+    extern( C ) nothrow 
+    {
+        GError* g_error_new(GQuark domain, gint code, const(gchar)* format, ...);
+        GError* g_error_new_literal(GQuark domain, gint code, const(gchar)* message);
+        GError* g_error_new_valist(GQuark domain, gint code, const(gchar)* format, va_list args);
+        void g_error_free(GError* error);
+        GError* g_error_copy(const(GError)* error);
+        gboolean g_error_matches(const(GError)* error, GQuark domain, gint code);
+        void g_set_error(GError** err, GQuark domain, gint code, const(gchar)* format, ...);
+        void g_set_error_literal(GError** err, GQuark domain, gint code, const(gchar)* message);
+        void g_propagate_error(GError** dest, GError* src);
+        void g_clear_error(GError** err);
+        void g_prefix_error(GError** err, const(gchar)* format, ...);
+        void g_propagate_prefixed_error(GError** dest, GError* src, const(gchar)* format, ...);
+    }
 }
-
-__gshared
+else
 {
-    da_g_error_new g_error_new; 
-    da_g_error_new_literal g_error_new_literal; 
-    da_g_error_new_valist g_error_new_valist; 
-    da_g_error_free g_error_free; 
-    da_g_error_copy g_error_copy; 
-    da_g_error_matches g_error_matches; 
-    da_g_set_error g_set_error; 
-    da_g_set_error_literal g_set_error_literal; 
-    da_g_propagate_error g_propagate_error; 
-    da_g_clear_error g_clear_error; 
-    da_g_prefix_error g_prefix_error; 
-    da_g_propagate_prefixed_error g_propagate_prefixed_error; 
+    extern( C ) nothrow 
+    {
+        alias da_g_error_new = GError* function(GQuark domain, gint code, const(gchar)* format, ...);						
+        alias da_g_error_new_literal = GError* function(GQuark domain, gint code, const(gchar)* message);					
+        alias da_g_error_new_valist = GError* function(GQuark domain, gint code, const(gchar)* format, va_list args);		
+        alias da_g_error_free = void function(GError* error);																
+        alias da_g_error_copy = GError* function(const(GError)* error);														
+        alias da_g_error_matches = gboolean function(const(GError)* error, GQuark domain, gint code);						
+        alias da_g_set_error = void function(GError** err, GQuark domain, gint code, const(gchar)* format, ...);			
+        alias da_g_set_error_literal = void function(GError** err, GQuark domain, gint code, const(gchar)* message);		
+        alias da_g_propagate_error = void function(GError** dest, GError* src);												
+        alias da_g_clear_error = void function(GError** err);																
+        alias da_g_prefix_error = void function(GError** err, const(gchar)* format, ...);									
+        alias da_g_propagate_prefixed_error = void function(GError** dest, GError* src, const(gchar)* format, ...);			
+    }
+
+    __gshared
+    {
+        da_g_error_new g_error_new; 
+        da_g_error_new_literal g_error_new_literal; 
+        da_g_error_new_valist g_error_new_valist; 
+        da_g_error_free g_error_free; 
+        da_g_error_copy g_error_copy; 
+        da_g_error_matches g_error_matches; 
+        da_g_set_error g_set_error; 
+        da_g_set_error_literal g_set_error_literal; 
+        da_g_propagate_error g_propagate_error; 
+        da_g_clear_error g_clear_error; 
+        da_g_prefix_error g_prefix_error; 
+        da_g_propagate_prefixed_error g_propagate_prefixed_error; 
+    }
 }

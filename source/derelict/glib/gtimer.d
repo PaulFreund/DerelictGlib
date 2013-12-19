@@ -37,32 +37,52 @@ alias _GTimer GTimer;
 
 struct _GTimer;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-	alias da_g_timer_new = GTimer* function();																
-    alias da_g_timer_destroy = void function(GTimer* timer);												
-    alias da_g_timer_start = void function(GTimer* timer);													
-    alias da_g_timer_stop = void function(GTimer* timer);													
-    alias da_g_timer_reset = void function(GTimer* timer);													
-    alias da_g_timer_continue = void function(GTimer* timer);												
-    alias da_g_timer_elapsed = gdouble function(GTimer* timer, gulong* microseconds);						
-    alias da_g_usleep = void function(gulong microseconds);													
-    alias da_g_time_val_add = void function(GTimeVal* time_, glong microseconds);							
-    alias da_g_time_val_from_iso8601 = gboolean function(const(gchar)* iso_date, GTimeVal* time_);			
-    alias da_g_time_val_to_iso8601 = gchar* function(GTimeVal* time_);										
+    extern( C ) nothrow 
+    {
+	    GTimer* g_timer_new();
+        void g_timer_destroy(GTimer* timer);
+        void g_timer_start(GTimer* timer);
+        void g_timer_stop(GTimer* timer);
+        void g_timer_reset(GTimer* timer);
+        void g_timer_continue(GTimer* timer);
+        gdouble g_timer_elapsed(GTimer* timer, gulong* microseconds);
+        void g_usleep(gulong microseconds);
+        void g_time_val_add(GTimeVal* time_, glong microseconds);
+        gboolean g_time_val_from_iso8601(const(gchar)* iso_date, GTimeVal* time_);
+        gchar* g_time_val_to_iso8601(GTimeVal* time_);
+    }
 }
-
-__gshared
+else
 {
-    da_g_timer_new g_timer_new; 
-    da_g_timer_destroy g_timer_destroy; 
-    da_g_timer_start g_timer_start; 
-    da_g_timer_stop g_timer_stop; 
-    da_g_timer_reset g_timer_reset; 
-    da_g_timer_continue g_timer_continue; 
-    da_g_timer_elapsed g_timer_elapsed; 
-    da_g_usleep g_usleep; 
-    da_g_time_val_add g_time_val_add; 
-    da_g_time_val_from_iso8601 g_time_val_from_iso8601; 
-    da_g_time_val_to_iso8601 g_time_val_to_iso8601; 
+    extern( C ) nothrow 
+    {
+	    alias da_g_timer_new = GTimer* function();																
+        alias da_g_timer_destroy = void function(GTimer* timer);												
+        alias da_g_timer_start = void function(GTimer* timer);													
+        alias da_g_timer_stop = void function(GTimer* timer);													
+        alias da_g_timer_reset = void function(GTimer* timer);													
+        alias da_g_timer_continue = void function(GTimer* timer);												
+        alias da_g_timer_elapsed = gdouble function(GTimer* timer, gulong* microseconds);						
+        alias da_g_usleep = void function(gulong microseconds);													
+        alias da_g_time_val_add = void function(GTimeVal* time_, glong microseconds);							
+        alias da_g_time_val_from_iso8601 = gboolean function(const(gchar)* iso_date, GTimeVal* time_);			
+        alias da_g_time_val_to_iso8601 = gchar* function(GTimeVal* time_);										
+    }
+
+    __gshared
+    {
+        da_g_timer_new g_timer_new; 
+        da_g_timer_destroy g_timer_destroy; 
+        da_g_timer_start g_timer_start; 
+        da_g_timer_stop g_timer_stop; 
+        da_g_timer_reset g_timer_reset; 
+        da_g_timer_continue g_timer_continue; 
+        da_g_timer_elapsed g_timer_elapsed; 
+        da_g_usleep g_usleep; 
+        da_g_time_val_add g_time_val_add; 
+        da_g_time_val_from_iso8601 g_time_val_from_iso8601; 
+        da_g_time_val_to_iso8601 g_time_val_to_iso8601; 
+    }
 }

@@ -44,18 +44,31 @@ enum _Anonymous_0
 	G_SHELL_ERROR_FAILED = 2
 }
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_shell_error_quark = GQuark function();																				
-    alias da_g_shell_quote = gchar* function(const(gchar)* unquoted_string);														
-    alias da_g_shell_unquote = gchar* function(const(gchar)* quoted_string, GError** error);										
-    alias da_g_shell_parse_argv = gboolean function(const(gchar)* command_line, gint* argcp, gchar*** argvp, GError** error);		
+    extern( C ) nothrow 
+    {
+        GQuark g_shell_error_quark();
+        gchar* g_shell_quote(const(gchar)* unquoted_string);
+        gchar* g_shell_unquote(const(gchar)* quoted_string, GError** error);
+        gboolean g_shell_parse_argv(const(gchar)* command_line, gint* argcp, gchar*** argvp, GError** error);
+    }
 }
-
-__gshared
+else
 {
-    da_g_shell_error_quark g_shell_error_quark; 
-    da_g_shell_quote g_shell_quote; 
-    da_g_shell_unquote g_shell_unquote; 
-    da_g_shell_parse_argv g_shell_parse_argv; 
+    extern( C ) nothrow 
+    {
+        alias da_g_shell_error_quark = GQuark function();																				
+        alias da_g_shell_quote = gchar* function(const(gchar)* unquoted_string);														
+        alias da_g_shell_unquote = gchar* function(const(gchar)* quoted_string, GError** error);										
+        alias da_g_shell_parse_argv = gboolean function(const(gchar)* command_line, gint* argcp, gchar*** argvp, GError** error);		
+    }
+
+    __gshared
+    {
+        da_g_shell_error_quark g_shell_error_quark; 
+        da_g_shell_quote g_shell_quote; 
+        da_g_shell_unquote g_shell_unquote; 
+        da_g_shell_parse_argv g_shell_parse_argv; 
+    }
 }

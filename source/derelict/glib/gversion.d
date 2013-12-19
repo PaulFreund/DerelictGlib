@@ -33,30 +33,55 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_glib_major_version = const guint;
-    alias da_glib_minor_version = const guint;
-    alias da_glib_micro_version = const guint;
-    alias da_glib_interface_age = const guint;
-    alias da_glib_binary_age = const guint;
+    extern( C ) nothrow 
+    {
+        const guint glib_major_version;
+        const guint glib_minor_version;
+        const guint glib_micro_version;
+        const guint glib_interface_age;
+        const guint glib_binary_age;
+    }
+}
+else
+{
+    extern( C ) nothrow 
+    {
+        alias da_glib_major_version = const guint;
+        alias da_glib_minor_version = const guint;
+        alias da_glib_micro_version = const guint;
+        alias da_glib_interface_age = const guint;
+        alias da_glib_binary_age = const guint;
+    }
+
+    __gshared
+    {
+        da_glib_major_version glib_major_version;
+        da_glib_minor_version glib_minor_version;
+        da_glib_micro_version glib_micro_version;
+        da_glib_interface_age glib_interface_age;
+        da_glib_binary_age glib_binary_age;
+    }
 }
 
-__gshared
-{
-    da_glib_major_version glib_major_version;
-    da_glib_minor_version glib_minor_version;
-    da_glib_micro_version glib_micro_version;
-    da_glib_interface_age glib_interface_age;
-    da_glib_binary_age glib_binary_age;
-}
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_glib_check_version = const(gchar)* function(guint required_major, guint required_minor, guint required_micro);
+    extern( C ) nothrow 
+    {
+        const(gchar)* glib_check_version(guint required_major, guint required_minor, guint required_micro);
+    }
 }
-
-__gshared
+else
 {
-	da_glib_check_version glib_check_version;
+    extern( C ) nothrow 
+    {
+        alias da_glib_check_version = const(gchar)* function(guint required_major, guint required_minor, guint required_micro);
+    }
+
+    __gshared
+    {
+	    da_glib_check_version glib_check_version;
+    }
 }

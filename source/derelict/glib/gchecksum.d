@@ -46,30 +46,49 @@ enum _Anonymous_0
 
 struct _GChecksum;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_checksum_type_get_length = gssize function(GChecksumType checksum_type);											
-    alias da_g_checksum_new = GChecksum* function(GChecksumType checksum_type);													
-    alias da_g_checksum_reset = void function(GChecksum* checksum);																
-    alias da_g_checksum_copy = GChecksum* function(const(GChecksum)* checksum);													
-    alias da_g_checksum_free = void function(GChecksum* checksum);																
-    alias da_g_checksum_update = void function(GChecksum* checksum, const(guchar)* data, gssize length);						
-    alias da_g_checksum_get_string = const(gchar)* function(GChecksum* checksum);												
-    alias da_g_checksum_get_digest = void function(GChecksum* checksum, guint8* buffer, gsize* digest_len);						
-    alias da_g_compute_checksum_for_data = gchar* function(GChecksumType checksum_type, const(guchar)* data, gsize length);		
-    alias da_g_compute_checksum_for_string = gchar* function(GChecksumType checksum_type, const(gchar)* str, gssize length);	
+    extern( C ) nothrow 
+    {
+        gssize g_checksum_type_get_length(GChecksumType checksum_type);
+        GChecksum* g_checksum_new(GChecksumType checksum_type);
+        void g_checksum_reset(GChecksum* checksum);
+        GChecksum* g_checksum_copy(const(GChecksum)* checksum);
+        void g_checksum_free(GChecksum* checksum);
+        void g_checksum_update(GChecksum* checksum, const(guchar)* data, gssize length);
+        const(gchar)* g_checksum_get_string(GChecksum* checksum);
+        void g_checksum_get_digest(GChecksum* checksum, guint8* buffer, gsize* digest_len);
+        gchar* g_compute_checksum_for_data(GChecksumType checksum_type, const(guchar)* data, gsize length);
+        gchar* g_compute_checksum_for_string(GChecksumType checksum_type, const(gchar)* str, gssize length);
+    }
 }
-
-__gshared
+else
 {
-    da_g_checksum_type_get_length g_checksum_type_get_length; 
-    da_g_checksum_new g_checksum_new; 
-    da_g_checksum_reset g_checksum_reset; 
-    da_g_checksum_copy g_checksum_copy; 
-    da_g_checksum_free g_checksum_free; 
-    da_g_checksum_update g_checksum_update; 
-    da_g_checksum_get_string g_checksum_get_string; 
-    da_g_checksum_get_digest g_checksum_get_digest; 
-    da_g_compute_checksum_for_data g_compute_checksum_for_data; 
-    da_g_compute_checksum_for_string g_compute_checksum_for_string; 
+    extern( C ) nothrow 
+    {
+        alias da_g_checksum_type_get_length = gssize function(GChecksumType checksum_type);											
+        alias da_g_checksum_new = GChecksum* function(GChecksumType checksum_type);													
+        alias da_g_checksum_reset = void function(GChecksum* checksum);																
+        alias da_g_checksum_copy = GChecksum* function(const(GChecksum)* checksum);													
+        alias da_g_checksum_free = void function(GChecksum* checksum);																
+        alias da_g_checksum_update = void function(GChecksum* checksum, const(guchar)* data, gssize length);						
+        alias da_g_checksum_get_string = const(gchar)* function(GChecksum* checksum);												
+        alias da_g_checksum_get_digest = void function(GChecksum* checksum, guint8* buffer, gsize* digest_len);						
+        alias da_g_compute_checksum_for_data = gchar* function(GChecksumType checksum_type, const(guchar)* data, gsize length);		
+        alias da_g_compute_checksum_for_string = gchar* function(GChecksumType checksum_type, const(gchar)* str, gssize length);	
+    }
+
+    __gshared
+    {
+        da_g_checksum_type_get_length g_checksum_type_get_length; 
+        da_g_checksum_new g_checksum_new; 
+        da_g_checksum_reset g_checksum_reset; 
+        da_g_checksum_copy g_checksum_copy; 
+        da_g_checksum_free g_checksum_free; 
+        da_g_checksum_update g_checksum_update; 
+        da_g_checksum_get_string g_checksum_get_string; 
+        da_g_checksum_get_digest g_checksum_get_digest; 
+        da_g_compute_checksum_for_data g_compute_checksum_for_data; 
+        da_g_compute_checksum_for_string g_compute_checksum_for_string; 
+    }
 }

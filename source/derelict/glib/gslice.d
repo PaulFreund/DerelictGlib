@@ -47,26 +47,43 @@ enum _Anonymous_0
 }
 
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_slice_alloc = gpointer function(gsize block_size);																																																				
-    alias da_g_slice_alloc0 = gpointer function(gsize block_size);																																																				
-    alias da_g_slice_copy = gpointer function(gsize block_size, gconstpointer mem_block);																																														
-    alias da_g_slice_free1 = void function(gsize block_size, gpointer mem_block);																																																
-    alias da_g_slice_free_chain_with_offset = void function(gsize block_size, gpointer mem_chain, gsize next_offset);																																							
-    alias da_g_slice_set_config = void function(GSliceConfig ckey, gint64 value);																																																
-    alias da_g_slice_get_config = gint64 function(GSliceConfig ckey);																																																			
-    alias da_g_slice_get_config_state = gint64* function(GSliceConfig ckey, gint64 address, guint* n_values);																																									
+    extern( C ) nothrow 
+    {
+        gpointer g_slice_alloc(gsize block_size);
+        gpointer g_slice_alloc0(gsize block_size);
+        gpointer g_slice_copy(gsize block_size, gconstpointer mem_block);
+        void g_slice_free1(gsize block_size, gpointer mem_block);
+        void g_slice_free_chain_with_offset(gsize block_size, gpointer mem_chain, gsize next_offset);
+        void g_slice_set_config(GSliceConfig ckey, gint64 value);
+        gint64 g_slice_get_config(GSliceConfig ckey);
+        gint64* g_slice_get_config_state(GSliceConfig ckey, gint64 address, guint* n_values);
+    }
 }
-
-__gshared
+else
 {
-    da_g_slice_alloc g_slice_alloc; 
-    da_g_slice_alloc0 g_slice_alloc0; 
-    da_g_slice_copy g_slice_copy; 
-    da_g_slice_free1 g_slice_free1; 
-    da_g_slice_free_chain_with_offset g_slice_free_chain_with_offset; 
-    da_g_slice_set_config g_slice_set_config; 
-    da_g_slice_get_config g_slice_get_config; 
-    da_g_slice_get_config_state g_slice_get_config_state; 
+    extern( C ) nothrow 
+    {
+        alias da_g_slice_alloc = gpointer function(gsize block_size);																																																				
+        alias da_g_slice_alloc0 = gpointer function(gsize block_size);																																																				
+        alias da_g_slice_copy = gpointer function(gsize block_size, gconstpointer mem_block);																																														
+        alias da_g_slice_free1 = void function(gsize block_size, gpointer mem_block);																																																
+        alias da_g_slice_free_chain_with_offset = void function(gsize block_size, gpointer mem_chain, gsize next_offset);																																							
+        alias da_g_slice_set_config = void function(GSliceConfig ckey, gint64 value);																																																
+        alias da_g_slice_get_config = gint64 function(GSliceConfig ckey);																																																			
+        alias da_g_slice_get_config_state = gint64* function(GSliceConfig ckey, gint64 address, guint* n_values);																																									
+    }
+
+    __gshared
+    {
+        da_g_slice_alloc g_slice_alloc; 
+        da_g_slice_alloc0 g_slice_alloc0; 
+        da_g_slice_copy g_slice_copy; 
+        da_g_slice_free1 g_slice_free1; 
+        da_g_slice_free_chain_with_offset g_slice_free_chain_with_offset; 
+        da_g_slice_set_config g_slice_set_config; 
+        da_g_slice_get_config g_slice_get_config; 
+        da_g_slice_get_config_state g_slice_get_config_state; 
+    }
 }

@@ -33,22 +33,37 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_bit_lock = void function(gint* address, gint lock_bit);						
-    alias da_g_bit_trylock = gboolean function(gint* address, gint lock_bit);				
-    alias da_g_bit_unlock = void function(gint* address, gint lock_bit);					
-    alias da_g_pointer_bit_lock = void function(void* address, gint lock_bit);				
-    alias da_g_pointer_bit_trylock = gboolean function(void* address, gint lock_bit);		
-    alias da_g_pointer_bit_unlock = void function(void* address, gint lock_bit);			
+    extern( C ) nothrow 
+    {
+        void g_bit_lock(gint* address, gint lock_bit);
+        gboolean g_bit_trylock(gint* address, gint lock_bit);
+        void g_bit_unlock(gint* address, gint lock_bit);
+        void g_pointer_bit_lock(void* address, gint lock_bit);
+        gboolean g_pointer_bit_trylock(void* address, gint lock_bit);
+        void g_pointer_bit_unlock(void* address, gint lock_bit);
+    }
 }
-
-__gshared
+else
 {
-    da_g_bit_lock g_bit_lock; 
-    da_g_bit_trylock g_bit_trylock; 
-    da_g_bit_unlock g_bit_unlock; 
-    da_g_pointer_bit_lock g_pointer_bit_lock; 
-    da_g_pointer_bit_trylock g_pointer_bit_trylock; 
-    da_g_pointer_bit_unlock g_pointer_bit_unlock; 
+    extern( C ) nothrow 
+    {
+        alias da_g_bit_lock = void function(gint* address, gint lock_bit);						
+        alias da_g_bit_trylock = gboolean function(gint* address, gint lock_bit);				
+        alias da_g_bit_unlock = void function(gint* address, gint lock_bit);					
+        alias da_g_pointer_bit_lock = void function(void* address, gint lock_bit);				
+        alias da_g_pointer_bit_trylock = gboolean function(void* address, gint lock_bit);		
+        alias da_g_pointer_bit_unlock = void function(void* address, gint lock_bit);			
+    }
+
+    __gshared
+    {
+        da_g_bit_lock g_bit_lock; 
+        da_g_bit_trylock g_bit_trylock; 
+        da_g_bit_unlock g_bit_unlock; 
+        da_g_pointer_bit_lock g_pointer_bit_lock; 
+        da_g_pointer_bit_trylock g_pointer_bit_trylock; 
+        da_g_pointer_bit_unlock g_pointer_bit_unlock; 
+    }
 }

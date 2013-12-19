@@ -52,6 +52,15 @@ alias _Anonymous_4 GIOCondition;
 alias _Anonymous_5 GIOFlags;
 alias int function (_GIOChannel*, _Anonymous_4, void*) GIOFunc;
 
+version(Derelict_Link_Static)
+{
+    extern( C ) nothrow 
+    {
+        GSourceFuncs da_g_io_watch_funcs;
+    }
+}
+else
+{
 extern( C ) nothrow 
 {
     alias da_g_io_watch_funcs = GSourceFuncs;
@@ -61,6 +70,8 @@ __gshared
 {
     da_g_io_watch_funcs g_io_watch_funcs;
 }
+}
+
 
 enum _Anonymous_0
 {
@@ -158,98 +169,151 @@ struct _GIOFuncs
 
 
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_io_channel_init = void function(GIOChannel* channel);																												
-    alias da_g_io_channel_ref = GIOChannel* function(GIOChannel* channel);																											
-    alias da_g_io_channel_unref = void function(GIOChannel* channel);																												
-    alias da_g_io_channel_read = GIOError function(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read);																
-    alias da_g_io_channel_write = GIOError function(GIOChannel* channel, const(gchar)* buf, gsize count, gsize* bytes_written);														
-    alias da_g_io_channel_seek = GIOError function(GIOChannel* channel, gint64 offset, GSeekType type);																				
-    alias da_g_io_channel_close = void function(GIOChannel* channel);																												
-    alias da_g_io_channel_shutdown = GIOStatus function(GIOChannel* channel, gboolean flush, GError** err);																			
-    alias da_g_io_add_watch_full = guint function(GIOChannel* channel, gint priority, GIOCondition condition, GIOFunc func, gpointer user_data, GDestroyNotify notify);				
-    alias da_g_io_create_watch = GSource* function(GIOChannel* channel, GIOCondition condition);																					
-    alias da_g_io_add_watch = guint function(GIOChannel* channel, GIOCondition condition, GIOFunc func, gpointer user_data);														
-    alias da_g_io_channel_set_buffer_size = void function(GIOChannel* channel, gsize size);																							
-    alias da_g_io_channel_get_buffer_size = gsize function(GIOChannel* channel);																									
-    alias da_g_io_channel_get_buffer_condition = GIOCondition function(GIOChannel* channel);																						
-    alias da_g_io_channel_set_flags = GIOStatus function(GIOChannel* channel, GIOFlags flags, GError** error);																		
-    alias da_g_io_channel_get_flags = GIOFlags function(GIOChannel* channel);																										
-    alias da_g_io_channel_set_line_term = void function(GIOChannel* channel, const(gchar)* line_term, gint length);																	
-    alias da_g_io_channel_get_line_term = const(gchar)* function(GIOChannel* channel, gint* length);																				
-    alias da_g_io_channel_set_buffered = void function(GIOChannel* channel, gboolean buffered);																						
-    alias da_g_io_channel_get_buffered = gboolean function(GIOChannel* channel);																									
-    alias da_g_io_channel_set_encoding = GIOStatus function(GIOChannel* channel, const(gchar)* encoding, GError** error);															
-    alias da_g_io_channel_get_encoding = const(gchar)* function(GIOChannel* channel);																								
-    alias da_g_io_channel_set_close_on_unref = void function(GIOChannel* channel, gboolean do_close);																				
-    alias da_g_io_channel_get_close_on_unref = gboolean function(GIOChannel* channel);																								
-    alias da_g_io_channel_flush = GIOStatus function(GIOChannel* channel, GError** error);																							
-    alias da_g_io_channel_read_line = GIOStatus function(GIOChannel* channel, gchar** str_return, gsize* length, gsize* terminator_pos, GError** error);							
-    alias da_g_io_channel_read_line_string = GIOStatus function(GIOChannel* channel, GString* buffer, gsize* terminator_pos, GError** error);										
-    alias da_g_io_channel_read_to_end = GIOStatus function(GIOChannel* channel, gchar** str_return, gsize* length, GError** error);													
-    alias da_g_io_channel_read_chars = GIOStatus function(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read, GError** error);											
-    alias da_g_io_channel_read_unichar = GIOStatus function(GIOChannel* channel, gunichar* thechar, GError** error);																
-    alias da_g_io_channel_write_chars = GIOStatus function(GIOChannel* channel, const(gchar)* buf, gssize count, gsize* bytes_written, GError** error);								
-    alias da_g_io_channel_write_unichar = GIOStatus function(GIOChannel* channel, gunichar thechar, GError** error);																
-    alias da_g_io_channel_seek_position = GIOStatus function(GIOChannel* channel, gint64 offset, GSeekType type, GError** error);													
-    alias da_g_io_channel_new_file = GIOChannel* function(const(gchar)* filename, const(gchar)* mode, GError** error);																
-    alias da_g_io_channel_error_quark = GQuark function();																															
-    alias da_g_io_channel_error_from_errno = GIOChannelError function(gint en);																										
-    alias da_g_io_channel_unix_new = GIOChannel* function(int fd);																													
-    alias da_g_io_channel_unix_get_fd = gint function(GIOChannel* channel);																											
-    alias da_g_io_channel_win32_make_pollfd = void function(GIOChannel *channel, GIOCondition condition, GPollFD *fd);
-    alias da_g_io_channel_win32_poll = gint function(GPollFD *fds, gint n_fds, gint timeout_);
-    alias da_g_io_channel_win32_new_messages = GIOChannel* function(gsize hwnd);
-    alias da_g_io_channel_win32_new_fd = GIOChannel* function(gint fd);
-    alias da_g_io_channel_win32_get_fd = gint function(GIOChannel *channel);
-    alias da_g_io_channel_win32_new_socket = GIOChannel* function(gint socket);
+    extern( C ) nothrow 
+    {
+        void g_io_channel_init(GIOChannel* channel);
+        GIOChannel* g_io_channel_ref(GIOChannel* channel);
+        void g_io_channel_unref(GIOChannel* channel);
+        GIOError g_io_channel_read(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read);
+        GIOError g_io_channel_write(GIOChannel* channel, const(gchar)* buf, gsize count, gsize* bytes_written);
+        GIOError g_io_channel_seek(GIOChannel* channel, gint64 offset, GSeekType type);
+        void g_io_channel_close(GIOChannel* channel);
+        GIOStatus g_io_channel_shutdown(GIOChannel* channel, gboolean flush, GError** err);
+        guint g_io_add_watch_full(GIOChannel* channel, gint priority, GIOCondition condition, GIOFunc func, gpointer user_data, GDestroyNotify notify);
+        GSource* g_io_create_watch(GIOChannel* channel, GIOCondition condition);
+        guint g_io_add_watch(GIOChannel* channel, GIOCondition condition, GIOFunc func, gpointer user_data);
+        void g_io_channel_set_buffer_size(GIOChannel* channel, gsize size);
+        gsize g_io_channel_get_buffer_size(GIOChannel* channel);
+        GIOCondition g_io_channel_get_buffer_condition(GIOChannel* channel);
+        GIOStatus g_io_channel_set_flags(GIOChannel* channel, GIOFlags flags, GError** error);
+        GIOFlags g_io_channel_get_flags(GIOChannel* channel);
+        void g_io_channel_set_line_term(GIOChannel* channel, const(gchar)* line_term, gint length);
+        const(gchar)* g_io_channel_get_line_term(GIOChannel* channel, gint* length);
+        void g_io_channel_set_buffered(GIOChannel* channel, gboolean buffered);
+        gboolean g_io_channel_get_buffered(GIOChannel* channel);
+        GIOStatus g_io_channel_set_encoding(GIOChannel* channel, const(gchar)* encoding, GError** error);
+        const(gchar)* g_io_channel_get_encoding(GIOChannel* channel);
+        void g_io_channel_set_close_on_unref(GIOChannel* channel, gboolean do_close);
+        gboolean g_io_channel_get_close_on_unref(GIOChannel* channel);
+        GIOStatus g_io_channel_flush(GIOChannel* channel, GError** error);
+        GIOStatus g_io_channel_read_line(GIOChannel* channel, gchar** str_return, gsize* length, gsize* terminator_pos, GError** error);
+        GIOStatus g_io_channel_read_line_string(GIOChannel* channel, GString* buffer, gsize* terminator_pos, GError** error);
+        GIOStatus g_io_channel_read_to_end(GIOChannel* channel, gchar** str_return, gsize* length, GError** error);
+        GIOStatus g_io_channel_read_chars(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read, GError** error);
+        GIOStatus g_io_channel_read_unichar(GIOChannel* channel, gunichar* thechar, GError** error);
+        GIOStatus g_io_channel_write_chars(GIOChannel* channel, const(gchar)* buf, gssize count, gsize* bytes_written, GError** error);
+        GIOStatus g_io_channel_write_unichar(GIOChannel* channel, gunichar thechar, GError** error);
+        GIOStatus g_io_channel_seek_position(GIOChannel* channel, gint64 offset, GSeekType type, GError** error);
+        GIOChannel* g_io_channel_new_file(const(gchar)* filename, const(gchar)* mode, GError** error);
+        GQuark g_io_channel_error_quark();
+        GIOChannelError g_io_channel_error_from_errno(gint en);
+        GIOChannel* g_io_channel_unix_new(int fd);
+        gint g_io_channel_unix_get_fd(GIOChannel* channel);
+        void g_io_channel_win32_make_pollfd(GIOChannel *channel, GIOCondition condition, GPollFD *fd);
+        gint g_io_channel_win32_poll(GPollFD *fds, gint n_fds, gint timeout_);
+        GIOChannel* g_io_channel_win32_new_messages(gsize hwnd);
+        GIOChannel* g_io_channel_win32_new_fd(gint fd);
+        gint g_io_channel_win32_get_fd(GIOChannel *channel);
+        GIOChannel* g_io_channel_win32_new_socket(gint socket);
+    }
 }
-
-__gshared
+else
 {
-    da_g_io_channel_init g_io_channel_init; 
-    da_g_io_channel_ref g_io_channel_ref; 
-    da_g_io_channel_unref g_io_channel_unref; 
-    da_g_io_channel_read g_io_channel_read; 
-    da_g_io_channel_write g_io_channel_write; 
-    da_g_io_channel_seek g_io_channel_seek; 
-    da_g_io_channel_close g_io_channel_close; 
-    da_g_io_channel_shutdown g_io_channel_shutdown; 
-    da_g_io_add_watch_full g_io_add_watch_full; 
-    da_g_io_create_watch g_io_create_watch; 
-    da_g_io_add_watch g_io_add_watch; 
-    da_g_io_channel_set_buffer_size g_io_channel_set_buffer_size; 
-    da_g_io_channel_get_buffer_size g_io_channel_get_buffer_size; 
-    da_g_io_channel_get_buffer_condition g_io_channel_get_buffer_condition; 
-    da_g_io_channel_set_flags g_io_channel_set_flags; 
-    da_g_io_channel_get_flags g_io_channel_get_flags; 
-    da_g_io_channel_set_line_term g_io_channel_set_line_term; 
-    da_g_io_channel_get_line_term g_io_channel_get_line_term; 
-    da_g_io_channel_set_buffered g_io_channel_set_buffered; 
-    da_g_io_channel_get_buffered g_io_channel_get_buffered; 
-    da_g_io_channel_set_encoding g_io_channel_set_encoding; 
-    da_g_io_channel_get_encoding g_io_channel_get_encoding; 
-    da_g_io_channel_set_close_on_unref g_io_channel_set_close_on_unref; 
-    da_g_io_channel_get_close_on_unref g_io_channel_get_close_on_unref; 
-    da_g_io_channel_flush g_io_channel_flush; 
-    da_g_io_channel_read_line g_io_channel_read_line; 	
-    da_g_io_channel_read_line_string g_io_channel_read_line_string; 
-    da_g_io_channel_read_to_end g_io_channel_read_to_end; 
-    da_g_io_channel_read_chars g_io_channel_read_chars; 
-    da_g_io_channel_read_unichar g_io_channel_read_unichar; 
-    da_g_io_channel_write_chars g_io_channel_write_chars; 
-    da_g_io_channel_write_unichar g_io_channel_write_unichar; 
-    da_g_io_channel_seek_position g_io_channel_seek_position; 
-    da_g_io_channel_new_file g_io_channel_new_file; 
-    da_g_io_channel_error_quark g_io_channel_error_quark; 
-    da_g_io_channel_error_from_errno g_io_channel_error_from_errno; 
-    da_g_io_channel_unix_new g_io_channel_unix_new; 
-    da_g_io_channel_unix_get_fd g_io_channel_unix_get_fd; 
-    da_g_io_channel_win32_make_pollfd g_io_channel_win32_make_pollfd;
-    da_g_io_channel_win32_poll g_io_channel_win32_poll;
-    da_g_io_channel_win32_new_messages g_io_channel_win32_new_messages;
-    da_g_io_channel_win32_new_fd g_io_channel_win32_new_fd;
-    da_g_io_channel_win32_get_fd g_io_channel_win32_get_fd;
-    da_g_io_channel_win32_new_socket g_io_channel_win32_new_socket;
+    extern( C ) nothrow 
+    {
+        alias da_g_io_channel_init = void function(GIOChannel* channel);																												
+        alias da_g_io_channel_ref = GIOChannel* function(GIOChannel* channel);																											
+        alias da_g_io_channel_unref = void function(GIOChannel* channel);																												
+        alias da_g_io_channel_read = GIOError function(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read);																
+        alias da_g_io_channel_write = GIOError function(GIOChannel* channel, const(gchar)* buf, gsize count, gsize* bytes_written);														
+        alias da_g_io_channel_seek = GIOError function(GIOChannel* channel, gint64 offset, GSeekType type);																				
+        alias da_g_io_channel_close = void function(GIOChannel* channel);																												
+        alias da_g_io_channel_shutdown = GIOStatus function(GIOChannel* channel, gboolean flush, GError** err);																			
+        alias da_g_io_add_watch_full = guint function(GIOChannel* channel, gint priority, GIOCondition condition, GIOFunc func, gpointer user_data, GDestroyNotify notify);				
+        alias da_g_io_create_watch = GSource* function(GIOChannel* channel, GIOCondition condition);																					
+        alias da_g_io_add_watch = guint function(GIOChannel* channel, GIOCondition condition, GIOFunc func, gpointer user_data);														
+        alias da_g_io_channel_set_buffer_size = void function(GIOChannel* channel, gsize size);																							
+        alias da_g_io_channel_get_buffer_size = gsize function(GIOChannel* channel);																									
+        alias da_g_io_channel_get_buffer_condition = GIOCondition function(GIOChannel* channel);																						
+        alias da_g_io_channel_set_flags = GIOStatus function(GIOChannel* channel, GIOFlags flags, GError** error);																		
+        alias da_g_io_channel_get_flags = GIOFlags function(GIOChannel* channel);																										
+        alias da_g_io_channel_set_line_term = void function(GIOChannel* channel, const(gchar)* line_term, gint length);																	
+        alias da_g_io_channel_get_line_term = const(gchar)* function(GIOChannel* channel, gint* length);																				
+        alias da_g_io_channel_set_buffered = void function(GIOChannel* channel, gboolean buffered);																						
+        alias da_g_io_channel_get_buffered = gboolean function(GIOChannel* channel);																									
+        alias da_g_io_channel_set_encoding = GIOStatus function(GIOChannel* channel, const(gchar)* encoding, GError** error);															
+        alias da_g_io_channel_get_encoding = const(gchar)* function(GIOChannel* channel);																								
+        alias da_g_io_channel_set_close_on_unref = void function(GIOChannel* channel, gboolean do_close);																				
+        alias da_g_io_channel_get_close_on_unref = gboolean function(GIOChannel* channel);																								
+        alias da_g_io_channel_flush = GIOStatus function(GIOChannel* channel, GError** error);																							
+        alias da_g_io_channel_read_line = GIOStatus function(GIOChannel* channel, gchar** str_return, gsize* length, gsize* terminator_pos, GError** error);							
+        alias da_g_io_channel_read_line_string = GIOStatus function(GIOChannel* channel, GString* buffer, gsize* terminator_pos, GError** error);										
+        alias da_g_io_channel_read_to_end = GIOStatus function(GIOChannel* channel, gchar** str_return, gsize* length, GError** error);													
+        alias da_g_io_channel_read_chars = GIOStatus function(GIOChannel* channel, gchar* buf, gsize count, gsize* bytes_read, GError** error);											
+        alias da_g_io_channel_read_unichar = GIOStatus function(GIOChannel* channel, gunichar* thechar, GError** error);																
+        alias da_g_io_channel_write_chars = GIOStatus function(GIOChannel* channel, const(gchar)* buf, gssize count, gsize* bytes_written, GError** error);								
+        alias da_g_io_channel_write_unichar = GIOStatus function(GIOChannel* channel, gunichar thechar, GError** error);																
+        alias da_g_io_channel_seek_position = GIOStatus function(GIOChannel* channel, gint64 offset, GSeekType type, GError** error);													
+        alias da_g_io_channel_new_file = GIOChannel* function(const(gchar)* filename, const(gchar)* mode, GError** error);																
+        alias da_g_io_channel_error_quark = GQuark function();																															
+        alias da_g_io_channel_error_from_errno = GIOChannelError function(gint en);																										
+        alias da_g_io_channel_unix_new = GIOChannel* function(int fd);																													
+        alias da_g_io_channel_unix_get_fd = gint function(GIOChannel* channel);																											
+        alias da_g_io_channel_win32_make_pollfd = void function(GIOChannel *channel, GIOCondition condition, GPollFD *fd);
+        alias da_g_io_channel_win32_poll = gint function(GPollFD *fds, gint n_fds, gint timeout_);
+        alias da_g_io_channel_win32_new_messages = GIOChannel* function(gsize hwnd);
+        alias da_g_io_channel_win32_new_fd = GIOChannel* function(gint fd);
+        alias da_g_io_channel_win32_get_fd = gint function(GIOChannel *channel);
+        alias da_g_io_channel_win32_new_socket = GIOChannel* function(gint socket);
+    }
+
+    __gshared
+    {
+        da_g_io_channel_init g_io_channel_init; 
+        da_g_io_channel_ref g_io_channel_ref; 
+        da_g_io_channel_unref g_io_channel_unref; 
+        da_g_io_channel_read g_io_channel_read; 
+        da_g_io_channel_write g_io_channel_write; 
+        da_g_io_channel_seek g_io_channel_seek; 
+        da_g_io_channel_close g_io_channel_close; 
+        da_g_io_channel_shutdown g_io_channel_shutdown; 
+        da_g_io_add_watch_full g_io_add_watch_full; 
+        da_g_io_create_watch g_io_create_watch; 
+        da_g_io_add_watch g_io_add_watch; 
+        da_g_io_channel_set_buffer_size g_io_channel_set_buffer_size; 
+        da_g_io_channel_get_buffer_size g_io_channel_get_buffer_size; 
+        da_g_io_channel_get_buffer_condition g_io_channel_get_buffer_condition; 
+        da_g_io_channel_set_flags g_io_channel_set_flags; 
+        da_g_io_channel_get_flags g_io_channel_get_flags; 
+        da_g_io_channel_set_line_term g_io_channel_set_line_term; 
+        da_g_io_channel_get_line_term g_io_channel_get_line_term; 
+        da_g_io_channel_set_buffered g_io_channel_set_buffered; 
+        da_g_io_channel_get_buffered g_io_channel_get_buffered; 
+        da_g_io_channel_set_encoding g_io_channel_set_encoding; 
+        da_g_io_channel_get_encoding g_io_channel_get_encoding; 
+        da_g_io_channel_set_close_on_unref g_io_channel_set_close_on_unref; 
+        da_g_io_channel_get_close_on_unref g_io_channel_get_close_on_unref; 
+        da_g_io_channel_flush g_io_channel_flush; 
+        da_g_io_channel_read_line g_io_channel_read_line; 	
+        da_g_io_channel_read_line_string g_io_channel_read_line_string; 
+        da_g_io_channel_read_to_end g_io_channel_read_to_end; 
+        da_g_io_channel_read_chars g_io_channel_read_chars; 
+        da_g_io_channel_read_unichar g_io_channel_read_unichar; 
+        da_g_io_channel_write_chars g_io_channel_write_chars; 
+        da_g_io_channel_write_unichar g_io_channel_write_unichar; 
+        da_g_io_channel_seek_position g_io_channel_seek_position; 
+        da_g_io_channel_new_file g_io_channel_new_file; 
+        da_g_io_channel_error_quark g_io_channel_error_quark; 
+        da_g_io_channel_error_from_errno g_io_channel_error_from_errno; 
+        da_g_io_channel_unix_new g_io_channel_unix_new; 
+        da_g_io_channel_unix_get_fd g_io_channel_unix_get_fd; 
+        da_g_io_channel_win32_make_pollfd g_io_channel_win32_make_pollfd;
+        da_g_io_channel_win32_poll g_io_channel_win32_poll;
+        da_g_io_channel_win32_new_messages g_io_channel_win32_new_messages;
+        da_g_io_channel_win32_new_fd g_io_channel_win32_new_fd;
+        da_g_io_channel_win32_get_fd g_io_channel_win32_get_fd;
+        da_g_io_channel_win32_new_socket g_io_channel_win32_new_socket;
+    }
 }

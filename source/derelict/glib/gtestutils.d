@@ -52,15 +52,26 @@ alias _Anonymous_3 GTestLogMsg;
 alias _Anonymous_4 GTestLogBuffer;
 alias int function (const(char)*, GLogLevelFlags, const(char)*, void*) GTestLogFatalFunc;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_test_config_vars = const GTestConfig*;
+    extern( C ) nothrow 
+    {
+        const GTestConfig* da_g_test_config_vars;
+    }
+}
+else
+{
+    extern( C ) nothrow 
+    {
+        alias da_g_test_config_vars = const GTestConfig*;
+    }
+
+    __gshared
+    {
+        da_g_test_config_vars g_test_config_vars;
+    }
 }
 
-__gshared
-{
-    da_g_test_config_vars g_test_config_vars;
-}
 
 enum _Anonymous_0
 {
@@ -114,102 +125,157 @@ struct GTestCase;
 struct GTestSuite;
 
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_strcmp0 = int function(const(char)* str1, const(char)* str2);																																				
-    alias da_g_test_minimized_result = void function(double minimized_quantity, const(char)* format, ...);																													
-    alias da_g_test_maximized_result = void function(double maximized_quantity, const(char)* format, ...);																													
-    alias da_g_test_init = void function(int* argc, char*** argv, ...);																																						
-    alias da_g_test_run = int function();																																													
-    alias da_g_test_add_func = void function(const(char)* testpath, GTestFunc test_func);																																	
-    alias da_g_test_add_data_func = void function(const(char)* testpath, gconstpointer test_data, GTestDataFunc test_func);	
-    alias da_g_test_add_data_func_full = void function(const char *testpath, gpointer test_data, GTestDataFunc test_func, GDestroyNotify data_free_func);
-    alias da_g_test_fail = void function();																																													
-    alias da_g_test_message = void function(const(char)* format, ...);																																						
-    alias da_g_test_bug_base = void function(const(char)* uri_pattern);																																						
-    alias da_g_test_bug = void function(const(char)* bug_uri_snippet);																																						
-    alias da_g_test_timer_start = void function();																																											
-    alias da_g_test_timer_elapsed = double function();																																										
-    alias da_g_test_timer_last = double function();																																											
-    alias da_g_test_queue_free = void function(gpointer gfree_pointer);																																						
-    alias da_g_test_queue_destroy = void function(GDestroyNotify destroy_func, gpointer destroy_data);																														
-    alias da_g_test_trap_fork = gboolean function(guint64 usec_timeout, GTestTrapFlags test_trap_flags);																													
-    alias da_g_test_trap_has_passed = gboolean function();																																									
-    alias da_g_test_trap_reached_timeout = gboolean function();																																								
-    alias da_g_test_rand_int = gint32 function();																																											
-    alias da_g_test_rand_int_range = gint32 function(gint32 begin, gint32 end);																																				
-    alias da_g_test_rand_double = double function();																																										
-    alias da_g_test_rand_double_range = double function(double range_start, double range_end);																																
-    alias da_g_test_create_case = GTestCase* function(const(char)* test_name, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);			
-    alias da_g_test_create_suite = GTestSuite* function(const(char)* suite_name);																																			
-    alias da_g_test_get_root = GTestSuite* function();																																										
-    alias da_g_test_suite_add = void function(GTestSuite* suite, GTestCase* test_case);																																		
-    alias da_g_test_suite_add_suite = void function(GTestSuite* suite, GTestSuite* nestedsuite);																															
-    alias da_g_test_run_suite = int function(GTestSuite* suite);																																							
-    alias da_g_test_trap_assertions = void function(const(char)* domain, const(char)* file, int line, const(char)* func, guint64 assertion_flags, const(char)* pattern);													
-    alias da_g_assertion_message = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* message);																				
-    alias da_g_assertion_message_expr = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr);																				
-    alias da_g_assertion_message_cmpstr = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(char)* arg1, const(char)* cmp, const(char)* arg2);					
-    alias da_g_assertion_message_cmpnum = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, real arg1, const(char)* cmp, real arg2, char numtype);						
-    alias da_g_assertion_message_error = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(GError)* error, GQuark error_domain, int error_code);					
-    alias da_g_test_add_vtable = void function(const(char)* testpath, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);					
-    alias da_g_test_log_type_name = const(char)* function(GTestLogType log_type);																																			
-    alias da_g_test_log_buffer_new = GTestLogBuffer* function();																																							
-    alias da_g_test_log_buffer_free = void function(GTestLogBuffer* tbuffer);																																				
-    alias da_g_test_log_buffer_push = void function(GTestLogBuffer* tbuffer, guint n_bytes, const(guint8)* bytes);																											
-    alias da_g_test_log_buffer_pop = GTestLogMsg* function(GTestLogBuffer* tbuffer);																																		
-    alias da_g_test_log_msg_free = void function(GTestLogMsg* tmsg);																																						
-    alias da_g_test_log_set_fatal_handler = void function(GTestLogFatalFunc log_func, gpointer user_data);																													
-    alias da_g_test_expect_message = void function(const gchar *log_domain, GLogLevelFlags log_level, const gchar *pattern);
-    alias da_g_test_assert_expected_messages_internal = void function(const char *domain, const char *file, int line, const char *func);
+    extern( C ) nothrow 
+    {
+        int g_strcmp0(const(char)* str1, const(char)* str2);
+        void g_test_minimized_result(double minimized_quantity, const(char)* format, ...);
+        void g_test_maximized_result(double maximized_quantity, const(char)* format, ...);
+        void g_test_init(int* argc, char*** argv, ...);
+        int g_test_run();
+        void g_test_add_func(const(char)* testpath, GTestFunc test_func);
+        void g_test_add_data_func(const(char)* testpath, gconstpointer test_data, GTestDataFunc test_func);
+        void g_test_add_data_func_full(const char *testpath, gpointer test_data, GTestDataFunc test_func, GDestroyNotify data_free_func);
+        void g_test_fail();
+        void g_test_message(const(char)* format, ...);
+        void g_test_bug_base(const(char)* uri_pattern);
+        void g_test_bug(const(char)* bug_uri_snippet);
+        void g_test_timer_start();
+        double g_test_timer_elapsed();
+        double g_test_timer_last();
+        void g_test_queue_free(gpointer gfree_pointer);
+        void g_test_queue_destroy(GDestroyNotify destroy_func, gpointer destroy_data);
+        gboolean g_test_trap_fork(guint64 usec_timeout, GTestTrapFlags test_trap_flags);
+        gboolean g_test_trap_has_passed();
+        gboolean g_test_trap_reached_timeout();
+        gint32 g_test_rand_int();
+        gint32 g_test_rand_int_range(gint32 begin, gint32 end);
+        double g_test_rand_double();
+        double g_test_rand_double_range(double range_start, double range_end);
+        GTestCase* g_test_create_case(const(char)* test_name, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);
+        GTestSuite* g_test_create_suite(const(char)* suite_name);
+        GTestSuite* g_test_get_root();
+        void g_test_suite_add(GTestSuite* suite, GTestCase* test_case);
+        void g_test_suite_add_suite(GTestSuite* suite, GTestSuite* nestedsuite);
+        int g_test_run_suite(GTestSuite* suite);
+        void g_test_trap_assertions(const(char)* domain, const(char)* file, int line, const(char)* func, guint64 assertion_flags, const(char)* pattern);
+        void g_assertion_message(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* message);
+        void g_assertion_message_expr(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr);
+        void g_assertion_message_cmpstr(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(char)* arg1, const(char)* cmp, const(char)* arg2);
+        void g_assertion_message_cmpnum(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, real arg1, const(char)* cmp, real arg2, char numtype);
+        void g_assertion_message_error(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(GError)* error, GQuark error_domain, int error_code);
+        void g_test_add_vtable(const(char)* testpath, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);
+        const(char)* g_test_log_type_name(GTestLogType log_type);
+        GTestLogBuffer* g_test_log_buffer_new();
+        void g_test_log_buffer_free(GTestLogBuffer* tbuffer);
+        void g_test_log_buffer_push(GTestLogBuffer* tbuffer, guint n_bytes, const(guint8)* bytes);
+        GTestLogMsg* g_test_log_buffer_pop(GTestLogBuffer* tbuffer);
+        void g_test_log_msg_free(GTestLogMsg* tmsg);
+        void g_test_log_set_fatal_handler(GTestLogFatalFunc log_func, gpointer user_data);
+        void g_test_expect_message(const gchar *log_domain, GLogLevelFlags log_level, const gchar *pattern);
+        void g_test_assert_expected_messages_internal(const char *domain, const char *file, int line, const char *func);
+    }
 }
-
-__gshared
+else
 {
-    da_g_strcmp0 g_strcmp0; 
-    da_g_test_minimized_result g_test_minimized_result; 
-    da_g_test_maximized_result g_test_maximized_result; 
-    da_g_test_init g_test_init; 
-    da_g_test_run g_test_run; 
-    da_g_test_add_func g_test_add_func; 
-    da_g_test_add_data_func g_test_add_data_func; 
-    da_g_test_add_data_func_full g_test_add_data_func_full;
-    da_g_test_fail g_test_fail; 
-    da_g_test_message g_test_message; 
-    da_g_test_bug_base g_test_bug_base; 
-    da_g_test_bug g_test_bug; 
-    da_g_test_timer_start g_test_timer_start; 
-    da_g_test_timer_elapsed g_test_timer_elapsed; 
-    da_g_test_timer_last g_test_timer_last; 
-    da_g_test_queue_free g_test_queue_free; 
-    da_g_test_queue_destroy g_test_queue_destroy; 
-    da_g_test_trap_fork g_test_trap_fork; 
-    da_g_test_trap_has_passed g_test_trap_has_passed; 
-    da_g_test_trap_reached_timeout g_test_trap_reached_timeout; 
-    da_g_test_rand_int g_test_rand_int; 
-    da_g_test_rand_int_range g_test_rand_int_range; 
-    da_g_test_rand_double g_test_rand_double; 
-    da_g_test_rand_double_range g_test_rand_double_range; 
-    da_g_test_create_case g_test_create_case; 
-    da_g_test_create_suite g_test_create_suite; 
-    da_g_test_get_root g_test_get_root; 
-    da_g_test_suite_add g_test_suite_add; 
-    da_g_test_suite_add_suite g_test_suite_add_suite; 
-    da_g_test_run_suite g_test_run_suite; 
-    da_g_test_trap_assertions g_test_trap_assertions; 
-    da_g_assertion_message g_assertion_message; 
-    da_g_assertion_message_expr g_assertion_message_expr; 
-    da_g_assertion_message_cmpstr g_assertion_message_cmpstr; 
-    da_g_assertion_message_cmpnum g_assertion_message_cmpnum; 
-    da_g_assertion_message_error g_assertion_message_error; 
-    da_g_test_add_vtable g_test_add_vtable; 
-    da_g_test_log_type_name g_test_log_type_name; 
-    da_g_test_log_buffer_new g_test_log_buffer_new; 
-    da_g_test_log_buffer_free g_test_log_buffer_free; 
-    da_g_test_log_buffer_push g_test_log_buffer_push; 
-    da_g_test_log_buffer_pop g_test_log_buffer_pop; 
-    da_g_test_log_msg_free g_test_log_msg_free; 
-    da_g_test_log_set_fatal_handler g_test_log_set_fatal_handler;
-    da_g_test_expect_message g_test_expect_message;
-    da_g_test_assert_expected_messages_internal g_test_assert_expected_messages_internal;
+    extern( C ) nothrow 
+    {
+        alias da_g_strcmp0 = int function(const(char)* str1, const(char)* str2);																																				
+        alias da_g_test_minimized_result = void function(double minimized_quantity, const(char)* format, ...);																													
+        alias da_g_test_maximized_result = void function(double maximized_quantity, const(char)* format, ...);																													
+        alias da_g_test_init = void function(int* argc, char*** argv, ...);																																						
+        alias da_g_test_run = int function();																																													
+        alias da_g_test_add_func = void function(const(char)* testpath, GTestFunc test_func);																																	
+        alias da_g_test_add_data_func = void function(const(char)* testpath, gconstpointer test_data, GTestDataFunc test_func);	
+        alias da_g_test_add_data_func_full = void function(const char *testpath, gpointer test_data, GTestDataFunc test_func, GDestroyNotify data_free_func);
+        alias da_g_test_fail = void function();																																													
+        alias da_g_test_message = void function(const(char)* format, ...);																																						
+        alias da_g_test_bug_base = void function(const(char)* uri_pattern);																																						
+        alias da_g_test_bug = void function(const(char)* bug_uri_snippet);																																						
+        alias da_g_test_timer_start = void function();																																											
+        alias da_g_test_timer_elapsed = double function();																																										
+        alias da_g_test_timer_last = double function();																																											
+        alias da_g_test_queue_free = void function(gpointer gfree_pointer);																																						
+        alias da_g_test_queue_destroy = void function(GDestroyNotify destroy_func, gpointer destroy_data);																														
+        alias da_g_test_trap_fork = gboolean function(guint64 usec_timeout, GTestTrapFlags test_trap_flags);																													
+        alias da_g_test_trap_has_passed = gboolean function();																																									
+        alias da_g_test_trap_reached_timeout = gboolean function();																																								
+        alias da_g_test_rand_int = gint32 function();																																											
+        alias da_g_test_rand_int_range = gint32 function(gint32 begin, gint32 end);																																				
+        alias da_g_test_rand_double = double function();																																										
+        alias da_g_test_rand_double_range = double function(double range_start, double range_end);																																
+        alias da_g_test_create_case = GTestCase* function(const(char)* test_name, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);			
+        alias da_g_test_create_suite = GTestSuite* function(const(char)* suite_name);																																			
+        alias da_g_test_get_root = GTestSuite* function();																																										
+        alias da_g_test_suite_add = void function(GTestSuite* suite, GTestCase* test_case);																																		
+        alias da_g_test_suite_add_suite = void function(GTestSuite* suite, GTestSuite* nestedsuite);																															
+        alias da_g_test_run_suite = int function(GTestSuite* suite);																																							
+        alias da_g_test_trap_assertions = void function(const(char)* domain, const(char)* file, int line, const(char)* func, guint64 assertion_flags, const(char)* pattern);													
+        alias da_g_assertion_message = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* message);																				
+        alias da_g_assertion_message_expr = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr);																				
+        alias da_g_assertion_message_cmpstr = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(char)* arg1, const(char)* cmp, const(char)* arg2);					
+        alias da_g_assertion_message_cmpnum = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, real arg1, const(char)* cmp, real arg2, char numtype);						
+        alias da_g_assertion_message_error = void function(const(char)* domain, const(char)* file, int line, const(char)* func, const(char)* expr, const(GError)* error, GQuark error_domain, int error_code);					
+        alias da_g_test_add_vtable = void function(const(char)* testpath, gsize data_size, gconstpointer test_data, GTestFixtureFunc data_setup, GTestFixtureFunc data_test, GTestFixtureFunc data_teardown);					
+        alias da_g_test_log_type_name = const(char)* function(GTestLogType log_type);																																			
+        alias da_g_test_log_buffer_new = GTestLogBuffer* function();																																							
+        alias da_g_test_log_buffer_free = void function(GTestLogBuffer* tbuffer);																																				
+        alias da_g_test_log_buffer_push = void function(GTestLogBuffer* tbuffer, guint n_bytes, const(guint8)* bytes);																											
+        alias da_g_test_log_buffer_pop = GTestLogMsg* function(GTestLogBuffer* tbuffer);																																		
+        alias da_g_test_log_msg_free = void function(GTestLogMsg* tmsg);																																						
+        alias da_g_test_log_set_fatal_handler = void function(GTestLogFatalFunc log_func, gpointer user_data);																													
+        alias da_g_test_expect_message = void function(const gchar *log_domain, GLogLevelFlags log_level, const gchar *pattern);
+        alias da_g_test_assert_expected_messages_internal = void function(const char *domain, const char *file, int line, const char *func);
+    }
+
+    __gshared
+    {
+        da_g_strcmp0 g_strcmp0; 
+        da_g_test_minimized_result g_test_minimized_result; 
+        da_g_test_maximized_result g_test_maximized_result; 
+        da_g_test_init g_test_init; 
+        da_g_test_run g_test_run; 
+        da_g_test_add_func g_test_add_func; 
+        da_g_test_add_data_func g_test_add_data_func; 
+        da_g_test_add_data_func_full g_test_add_data_func_full;
+        da_g_test_fail g_test_fail; 
+        da_g_test_message g_test_message; 
+        da_g_test_bug_base g_test_bug_base; 
+        da_g_test_bug g_test_bug; 
+        da_g_test_timer_start g_test_timer_start; 
+        da_g_test_timer_elapsed g_test_timer_elapsed; 
+        da_g_test_timer_last g_test_timer_last; 
+        da_g_test_queue_free g_test_queue_free; 
+        da_g_test_queue_destroy g_test_queue_destroy; 
+        da_g_test_trap_fork g_test_trap_fork; 
+        da_g_test_trap_has_passed g_test_trap_has_passed; 
+        da_g_test_trap_reached_timeout g_test_trap_reached_timeout; 
+        da_g_test_rand_int g_test_rand_int; 
+        da_g_test_rand_int_range g_test_rand_int_range; 
+        da_g_test_rand_double g_test_rand_double; 
+        da_g_test_rand_double_range g_test_rand_double_range; 
+        da_g_test_create_case g_test_create_case; 
+        da_g_test_create_suite g_test_create_suite; 
+        da_g_test_get_root g_test_get_root; 
+        da_g_test_suite_add g_test_suite_add; 
+        da_g_test_suite_add_suite g_test_suite_add_suite; 
+        da_g_test_run_suite g_test_run_suite; 
+        da_g_test_trap_assertions g_test_trap_assertions; 
+        da_g_assertion_message g_assertion_message; 
+        da_g_assertion_message_expr g_assertion_message_expr; 
+        da_g_assertion_message_cmpstr g_assertion_message_cmpstr; 
+        da_g_assertion_message_cmpnum g_assertion_message_cmpnum; 
+        da_g_assertion_message_error g_assertion_message_error; 
+        da_g_test_add_vtable g_test_add_vtable; 
+        da_g_test_log_type_name g_test_log_type_name; 
+        da_g_test_log_buffer_new g_test_log_buffer_new; 
+        da_g_test_log_buffer_free g_test_log_buffer_free; 
+        da_g_test_log_buffer_push g_test_log_buffer_push; 
+        da_g_test_log_buffer_pop g_test_log_buffer_pop; 
+        da_g_test_log_msg_free g_test_log_msg_free; 
+        da_g_test_log_set_fatal_handler g_test_log_set_fatal_handler;
+        da_g_test_expect_message g_test_expect_message;
+        da_g_test_assert_expected_messages_internal g_test_assert_expected_messages_internal;
+    }
 }

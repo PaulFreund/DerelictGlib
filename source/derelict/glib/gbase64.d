@@ -34,22 +34,37 @@ import core.stdc.config;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_base64_encode_step = gsize function(const(guchar)* in_, gsize len, gboolean break_lines, gchar* out_, gint* state, gint* save);	
-    alias da_g_base64_encode_close = gsize function(gboolean break_lines, gchar* out_, gint* state, gint* save);								
-    alias da_g_base64_encode = gchar* function(const(guchar)* data, gsize len);																	
-    alias da_g_base64_decode_step = gsize function(const(gchar)* in_, gsize len, guchar* out_, gint* state, guint* save);						
-    alias da_g_base64_decode = guchar* function(const(gchar)* text, gsize* out_len);															
-    alias da_g_base64_decode_inplace = guchar* function(gchar* text, gsize* out_len);															
+    extern( C ) nothrow 
+    {
+        gsize g_base64_encode_step(const(guchar)* in_, gsize len, gboolean break_lines, gchar* out_, gint* state, gint* save);
+        gsize g_base64_encode_close(gboolean break_lines, gchar* out_, gint* state, gint* save);
+        gchar* g_base64_encode(const(guchar)* data, gsize len);
+        gsize g_base64_decode_step(const(gchar)* in_, gsize len, guchar* out_, gint* state, guint* save);
+        guchar* g_base64_decode(const(gchar)* text, gsize* out_len);
+        guchar* g_base64_decode_inplace(gchar* text, gsize* out_len);
+    }
 }
-
-__gshared
+else
 {
-    da_g_base64_encode_step g_base64_encode_step; 
-    da_g_base64_encode_close g_base64_encode_close; 
-    da_g_base64_encode g_base64_encode; 
-    da_g_base64_decode_step g_base64_decode_step; 
-    da_g_base64_decode g_base64_decode; 
-    da_g_base64_decode_inplace g_base64_decode_inplace; 
+    extern( C ) nothrow 
+    {
+        alias da_g_base64_encode_step = gsize function(const(guchar)* in_, gsize len, gboolean break_lines, gchar* out_, gint* state, gint* save);	
+        alias da_g_base64_encode_close = gsize function(gboolean break_lines, gchar* out_, gint* state, gint* save);								
+        alias da_g_base64_encode = gchar* function(const(guchar)* data, gsize len);																	
+        alias da_g_base64_decode_step = gsize function(const(gchar)* in_, gsize len, guchar* out_, gint* state, guint* save);						
+        alias da_g_base64_decode = guchar* function(const(gchar)* text, gsize* out_len);															
+        alias da_g_base64_decode_inplace = guchar* function(gchar* text, gsize* out_len);															
+    }
+
+    __gshared
+    {
+        da_g_base64_encode_step g_base64_encode_step; 
+        da_g_base64_encode_close g_base64_encode_close; 
+        da_g_base64_encode g_base64_encode; 
+        da_g_base64_decode_step g_base64_decode_step; 
+        da_g_base64_decode g_base64_decode; 
+        da_g_base64_decode_inplace g_base64_decode_inplace; 
+    }
 }

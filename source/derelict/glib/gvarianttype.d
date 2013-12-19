@@ -38,70 +38,109 @@ alias _GVariantType GVariantType;
 
 struct _GVariantType;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_variant_type_string_is_valid = gboolean function(const(gchar)* type_string);												
-    alias da_g_variant_type_string_scan = gboolean function(const(gchar)* string, const(gchar)* limit, const(gchar*)* endptr);			
-    alias da_g_variant_type_free = void function(GVariantType* type);																	
-    alias da_g_variant_type_copy = GVariantType* function(const(GVariantType)* type);													
-    alias da_g_variant_type_new = GVariantType* function(const(gchar)* type_string);													
-    alias da_g_variant_type_get_string_length = gsize function(const(GVariantType)* type);												
-    alias da_g_variant_type_peek_string = const(gchar)* function(const(GVariantType)* type);											
-    alias da_g_variant_type_dup_string = gchar* function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_definite = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_container = gboolean function(const(GVariantType)* type);												
-    alias da_g_variant_type_is_basic = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_maybe = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_array = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_tuple = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_is_dict_entry = gboolean function(const(GVariantType)* type);												
-    alias da_g_variant_type_is_variant = gboolean function(const(GVariantType)* type);													
-    alias da_g_variant_type_hash = guint function(gconstpointer type);																	
-    alias da_g_variant_type_equal = gboolean function(gconstpointer type1, gconstpointer type2);										
-    alias da_g_variant_type_is_subtype_of = gboolean function(const(GVariantType)* type, const(GVariantType)* supertype);				
-    alias da_g_variant_type_element = const(GVariantType)* function(const(GVariantType)* type);											
-    alias da_g_variant_type_first = const(GVariantType)* function(const(GVariantType)* type);											
-    alias da_g_variant_type_next = const(GVariantType)* function(const(GVariantType)* type);											
-    alias da_g_variant_type_n_items = gsize function(const(GVariantType)* type);														
-    alias da_g_variant_type_key = const(GVariantType)* function(const(GVariantType)* type);												
-    alias da_g_variant_type_value = const(GVariantType)* function(const(GVariantType)* type);											
-    alias da_g_variant_type_new_array = GVariantType* function(const(GVariantType)* element);											
-    alias da_g_variant_type_new_maybe = GVariantType* function(const(GVariantType)* element);											
-    alias da_g_variant_type_new_tuple = GVariantType* function(const(GVariantType*)* items, gint length);								
-    alias da_g_variant_type_new_dict_entry = GVariantType* function(const(GVariantType)* key, const(GVariantType)* value);				
-    alias da_g_variant_type_checked_ = const(GVariantType)* function(const(gchar)*);													
+    extern( C ) nothrow 
+    {
+        gboolean g_variant_type_string_is_valid(const(gchar)* type_string);
+        gboolean g_variant_type_string_scan(const(gchar)* string, const(gchar)* limit, const(gchar*)* endptr);
+        void g_variant_type_free(GVariantType* type);
+        GVariantType* g_variant_type_copy(const(GVariantType)* type);
+        GVariantType* g_variant_type_new(const(gchar)* type_string);
+        gsize g_variant_type_get_string_length(const(GVariantType)* type);
+        const(gchar)* g_variant_type_peek_string(const(GVariantType)* type);
+        gchar* g_variant_type_dup_string(const(GVariantType)* type);
+        gboolean g_variant_type_is_definite(const(GVariantType)* type);
+        gboolean g_variant_type_is_container(const(GVariantType)* type);
+        gboolean g_variant_type_is_basic(const(GVariantType)* type);
+        gboolean g_variant_type_is_maybe(const(GVariantType)* type);
+        gboolean g_variant_type_is_array(const(GVariantType)* type);
+        gboolean g_variant_type_is_tuple(const(GVariantType)* type);
+        gboolean g_variant_type_is_dict_entry(const(GVariantType)* type);
+        gboolean g_variant_type_is_variant(const(GVariantType)* type);
+        guint g_variant_type_hash(gconstpointer type);
+        gboolean g_variant_type_equal(gconstpointer type1, gconstpointer type2);
+        gboolean g_variant_type_is_subtype_of(const(GVariantType)* type, const(GVariantType)* supertype);
+        const(GVariantType)* g_variant_type_element(const(GVariantType)* type);
+        const(GVariantType)* g_variant_type_first(const(GVariantType)* type);
+        const(GVariantType)* g_variant_type_next(const(GVariantType)* type);
+        gsize g_variant_type_n_items(const(GVariantType)* type);
+        const(GVariantType)* g_variant_type_key(const(GVariantType)* type);
+        const(GVariantType)* g_variant_type_value(const(GVariantType)* type);
+        GVariantType* g_variant_type_new_array(const(GVariantType)* element);
+        GVariantType* g_variant_type_new_maybe(const(GVariantType)* element);
+        GVariantType* g_variant_type_new_tuple(const(GVariantType*)* items, gint length);
+        GVariantType* g_variant_type_new_dict_entry(const(GVariantType)* key, const(GVariantType)* value);
+        const(GVariantType)* g_variant_type_checked_(const(gchar)*);
+    }
 }
-
-__gshared
+else
 {
-    da_g_variant_type_string_is_valid g_variant_type_string_is_valid; 
-    da_g_variant_type_string_scan g_variant_type_string_scan; 
-    da_g_variant_type_free g_variant_type_free; 
-    da_g_variant_type_copy g_variant_type_copy; 
-    da_g_variant_type_new g_variant_type_new; 
-    da_g_variant_type_get_string_length g_variant_type_get_string_length; 
-    da_g_variant_type_peek_string g_variant_type_peek_string; 
-    da_g_variant_type_dup_string g_variant_type_dup_string; 
-    da_g_variant_type_is_definite g_variant_type_is_definite; 
-    da_g_variant_type_is_container g_variant_type_is_container; 
-    da_g_variant_type_is_basic g_variant_type_is_basic; 
-    da_g_variant_type_is_maybe g_variant_type_is_maybe; 
-    da_g_variant_type_is_array g_variant_type_is_array; 
-    da_g_variant_type_is_tuple g_variant_type_is_tuple; 
-    da_g_variant_type_is_dict_entry g_variant_type_is_dict_entry; 
-    da_g_variant_type_is_variant g_variant_type_is_variant; 
-    da_g_variant_type_hash g_variant_type_hash; 
-    da_g_variant_type_equal g_variant_type_equal; 
-    da_g_variant_type_is_subtype_of g_variant_type_is_subtype_of; 
-    da_g_variant_type_element g_variant_type_element; 
-    da_g_variant_type_first g_variant_type_first; 
-    da_g_variant_type_next g_variant_type_next; 
-    da_g_variant_type_n_items g_variant_type_n_items; 
-    da_g_variant_type_key g_variant_type_key; 
-    da_g_variant_type_value g_variant_type_value; 
-    da_g_variant_type_new_array g_variant_type_new_array; 
-    da_g_variant_type_new_maybe g_variant_type_new_maybe; 
-    da_g_variant_type_new_tuple g_variant_type_new_tuple; 
-    da_g_variant_type_new_dict_entry g_variant_type_new_dict_entry; 
-    da_g_variant_type_checked_ g_variant_type_checked_; 
+    extern( C ) nothrow 
+    {
+        alias da_g_variant_type_string_is_valid = gboolean function(const(gchar)* type_string);												
+        alias da_g_variant_type_string_scan = gboolean function(const(gchar)* string, const(gchar)* limit, const(gchar*)* endptr);			
+        alias da_g_variant_type_free = void function(GVariantType* type);																	
+        alias da_g_variant_type_copy = GVariantType* function(const(GVariantType)* type);													
+        alias da_g_variant_type_new = GVariantType* function(const(gchar)* type_string);													
+        alias da_g_variant_type_get_string_length = gsize function(const(GVariantType)* type);												
+        alias da_g_variant_type_peek_string = const(gchar)* function(const(GVariantType)* type);											
+        alias da_g_variant_type_dup_string = gchar* function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_definite = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_container = gboolean function(const(GVariantType)* type);												
+        alias da_g_variant_type_is_basic = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_maybe = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_array = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_tuple = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_is_dict_entry = gboolean function(const(GVariantType)* type);												
+        alias da_g_variant_type_is_variant = gboolean function(const(GVariantType)* type);													
+        alias da_g_variant_type_hash = guint function(gconstpointer type);																	
+        alias da_g_variant_type_equal = gboolean function(gconstpointer type1, gconstpointer type2);										
+        alias da_g_variant_type_is_subtype_of = gboolean function(const(GVariantType)* type, const(GVariantType)* supertype);				
+        alias da_g_variant_type_element = const(GVariantType)* function(const(GVariantType)* type);											
+        alias da_g_variant_type_first = const(GVariantType)* function(const(GVariantType)* type);											
+        alias da_g_variant_type_next = const(GVariantType)* function(const(GVariantType)* type);											
+        alias da_g_variant_type_n_items = gsize function(const(GVariantType)* type);														
+        alias da_g_variant_type_key = const(GVariantType)* function(const(GVariantType)* type);												
+        alias da_g_variant_type_value = const(GVariantType)* function(const(GVariantType)* type);											
+        alias da_g_variant_type_new_array = GVariantType* function(const(GVariantType)* element);											
+        alias da_g_variant_type_new_maybe = GVariantType* function(const(GVariantType)* element);											
+        alias da_g_variant_type_new_tuple = GVariantType* function(const(GVariantType*)* items, gint length);								
+        alias da_g_variant_type_new_dict_entry = GVariantType* function(const(GVariantType)* key, const(GVariantType)* value);				
+        alias da_g_variant_type_checked_ = const(GVariantType)* function(const(gchar)*);													
+    }
+
+    __gshared
+    {
+        da_g_variant_type_string_is_valid g_variant_type_string_is_valid; 
+        da_g_variant_type_string_scan g_variant_type_string_scan; 
+        da_g_variant_type_free g_variant_type_free; 
+        da_g_variant_type_copy g_variant_type_copy; 
+        da_g_variant_type_new g_variant_type_new; 
+        da_g_variant_type_get_string_length g_variant_type_get_string_length; 
+        da_g_variant_type_peek_string g_variant_type_peek_string; 
+        da_g_variant_type_dup_string g_variant_type_dup_string; 
+        da_g_variant_type_is_definite g_variant_type_is_definite; 
+        da_g_variant_type_is_container g_variant_type_is_container; 
+        da_g_variant_type_is_basic g_variant_type_is_basic; 
+        da_g_variant_type_is_maybe g_variant_type_is_maybe; 
+        da_g_variant_type_is_array g_variant_type_is_array; 
+        da_g_variant_type_is_tuple g_variant_type_is_tuple; 
+        da_g_variant_type_is_dict_entry g_variant_type_is_dict_entry; 
+        da_g_variant_type_is_variant g_variant_type_is_variant; 
+        da_g_variant_type_hash g_variant_type_hash; 
+        da_g_variant_type_equal g_variant_type_equal; 
+        da_g_variant_type_is_subtype_of g_variant_type_is_subtype_of; 
+        da_g_variant_type_element g_variant_type_element; 
+        da_g_variant_type_first g_variant_type_first; 
+        da_g_variant_type_next g_variant_type_next; 
+        da_g_variant_type_n_items g_variant_type_n_items; 
+        da_g_variant_type_key g_variant_type_key; 
+        da_g_variant_type_value g_variant_type_value; 
+        da_g_variant_type_new_array g_variant_type_new_array; 
+        da_g_variant_type_new_maybe g_variant_type_new_maybe; 
+        da_g_variant_type_new_tuple g_variant_type_new_tuple; 
+        da_g_variant_type_new_dict_entry g_variant_type_new_dict_entry; 
+        da_g_variant_type_checked_ g_variant_type_checked_; 
+    }
 }

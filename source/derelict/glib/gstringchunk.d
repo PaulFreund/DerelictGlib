@@ -39,22 +39,37 @@ alias _GStringChunk GStringChunk;
 struct _GStringChunk;
 
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_string_chunk_new = GStringChunk* function(gsize size);													
-    alias da_g_string_chunk_free = void function(GStringChunk* chunk);													
-    alias da_g_string_chunk_clear = void function(GStringChunk* chunk);													
-    alias da_g_string_chunk_insert = gchar* function(GStringChunk* chunk, const(gchar)* string);						
-    alias da_g_string_chunk_insert_len = gchar* function(GStringChunk* chunk, const(gchar)* string, gssize len);		
-    alias da_g_string_chunk_insert_const = gchar* function(GStringChunk* chunk, const(gchar)* string);					
+    extern( C ) nothrow 
+    {
+        GStringChunk* g_string_chunk_new(gsize size);
+        void g_string_chunk_free(GStringChunk* chunk);
+        void g_string_chunk_clear(GStringChunk* chunk);
+        gchar* g_string_chunk_insert(GStringChunk* chunk, const(gchar)* string);
+        gchar* g_string_chunk_insert_len(GStringChunk* chunk, const(gchar)* string, gssize len);
+        gchar* g_string_chunk_insert_const(GStringChunk* chunk, const(gchar)* string);
+    }
 }
-
-__gshared
+else
 {
-    da_g_string_chunk_new g_string_chunk_new; 
-    da_g_string_chunk_free g_string_chunk_free; 
-    da_g_string_chunk_clear g_string_chunk_clear; 
-    da_g_string_chunk_insert g_string_chunk_insert; 
-    da_g_string_chunk_insert_len g_string_chunk_insert_len; 
-    da_g_string_chunk_insert_const g_string_chunk_insert_const; 
+    extern( C ) nothrow 
+    {
+        alias da_g_string_chunk_new = GStringChunk* function(gsize size);													
+        alias da_g_string_chunk_free = void function(GStringChunk* chunk);													
+        alias da_g_string_chunk_clear = void function(GStringChunk* chunk);													
+        alias da_g_string_chunk_insert = gchar* function(GStringChunk* chunk, const(gchar)* string);						
+        alias da_g_string_chunk_insert_len = gchar* function(GStringChunk* chunk, const(gchar)* string, gssize len);		
+        alias da_g_string_chunk_insert_const = gchar* function(GStringChunk* chunk, const(gchar)* string);					
+    }
+
+    __gshared
+    {
+        da_g_string_chunk_new g_string_chunk_new; 
+        da_g_string_chunk_free g_string_chunk_free; 
+        da_g_string_chunk_clear g_string_chunk_clear; 
+        da_g_string_chunk_insert g_string_chunk_insert; 
+        da_g_string_chunk_insert_len g_string_chunk_insert_len; 
+        da_g_string_chunk_insert_const g_string_chunk_insert_const; 
+    }
 }

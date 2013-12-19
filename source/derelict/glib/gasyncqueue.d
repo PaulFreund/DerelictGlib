@@ -38,58 +38,91 @@ alias _GAsyncQueue GAsyncQueue;
 
 struct _GAsyncQueue;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_async_queue_new = GAsyncQueue* function();																								
-    alias da_g_async_queue_new_full = GAsyncQueue* function(GDestroyNotify item_free_func);																
-    alias da_g_async_queue_lock = void function(GAsyncQueue* queue);																					
-    alias da_g_async_queue_unlock = void function(GAsyncQueue* queue);																					
-    alias da_g_async_queue_ref = GAsyncQueue* function(GAsyncQueue* queue);																				
-    alias da_g_async_queue_unref = void function(GAsyncQueue* queue);																					
-    alias da_g_async_queue_ref_unlocked = void function(GAsyncQueue* queue);																			
-    alias da_g_async_queue_unref_and_unlock = void function(GAsyncQueue* queue);																		
-    alias da_g_async_queue_push = void function(GAsyncQueue* queue, gpointer data);																		
-    alias da_g_async_queue_push_unlocked = void function(GAsyncQueue* queue, gpointer data);															
-    alias da_g_async_queue_push_sorted = void function(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);					
-    alias da_g_async_queue_push_sorted_unlocked = void function(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);			
-    alias da_g_async_queue_pop = gpointer function(GAsyncQueue* queue);																					
-    alias da_g_async_queue_pop_unlocked = gpointer function(GAsyncQueue* queue);																		
-    alias da_g_async_queue_try_pop = gpointer function(GAsyncQueue* queue);																				
-    alias da_g_async_queue_try_pop_unlocked = gpointer function(GAsyncQueue* queue);																	
-    alias da_g_async_queue_timeout_pop = gpointer function(GAsyncQueue* queue, guint64 timeout);														
-    alias da_g_async_queue_timeout_pop_unlocked = gpointer function(GAsyncQueue* queue, guint64 timeout);												
-    alias da_g_async_queue_length = gint function(GAsyncQueue* queue);																					
-    alias da_g_async_queue_length_unlocked = gint function(GAsyncQueue* queue);																			
-    alias da_g_async_queue_sort = void function(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);											
-    alias da_g_async_queue_sort_unlocked = void function(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);								
-    alias da_g_async_queue_timed_pop = gpointer function(GAsyncQueue* queue, GTimeVal* end_time);														
-    alias da_g_async_queue_timed_pop_unlocked = gpointer function(GAsyncQueue* queue, GTimeVal* end_time);												
+    extern( C ) nothrow 
+    {
+        GAsyncQueue* g_async_queue_new();
+        GAsyncQueue* g_async_queue_new_full(GDestroyNotify item_free_func);
+        void g_async_queue_lock(GAsyncQueue* queue);
+        void g_async_queue_unlock(GAsyncQueue* queue);
+        GAsyncQueue* g_async_queue_ref(GAsyncQueue* queue);
+        void g_async_queue_unref(GAsyncQueue* queue);
+        void g_async_queue_ref_unlocked(GAsyncQueue* queue);
+        void g_async_queue_unref_and_unlock(GAsyncQueue* queue);
+        void g_async_queue_push(GAsyncQueue* queue, gpointer data);
+        void g_async_queue_push_unlocked(GAsyncQueue* queue, gpointer data);
+        void g_async_queue_push_sorted(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);
+        void g_async_queue_push_sorted_unlocked(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);
+        gpointer g_async_queue_pop(GAsyncQueue* queue);
+        gpointer g_async_queue_pop_unlocked(GAsyncQueue* queue);
+        gpointer g_async_queue_try_pop(GAsyncQueue* queue);
+        gpointer g_async_queue_try_pop_unlocked(GAsyncQueue* queue);
+        gpointer g_async_queue_timeout_pop(GAsyncQueue* queue, guint64 timeout);
+        gpointer g_async_queue_timeout_pop_unlocked(GAsyncQueue* queue, guint64 timeout);
+        gint g_async_queue_length(GAsyncQueue* queue);
+        gint g_async_queue_length_unlocked(GAsyncQueue* queue);
+        void g_async_queue_sort(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);
+        void g_async_queue_sort_unlocked(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);
+        gpointer g_async_queue_timed_pop(GAsyncQueue* queue, GTimeVal* end_time);
+        gpointer g_async_queue_timed_pop_unlocked(GAsyncQueue* queue, GTimeVal* end_time);
+    }
 }
-
-__gshared 
+else
 {
-    da_g_async_queue_new g_async_queue_new; 
-    da_g_async_queue_new_full g_async_queue_new_full; 
-    da_g_async_queue_lock g_async_queue_lock; 
-    da_g_async_queue_unlock g_async_queue_unlock; 
-    da_g_async_queue_ref g_async_queue_ref; 
-    da_g_async_queue_unref g_async_queue_unref; 
-    da_g_async_queue_ref_unlocked g_async_queue_ref_unlocked; 
-    da_g_async_queue_unref_and_unlock g_async_queue_unref_and_unlock; 
-    da_g_async_queue_push g_async_queue_push; 
-    da_g_async_queue_push_unlocked g_async_queue_push_unlocked; 
-    da_g_async_queue_push_sorted g_async_queue_push_sorted; 
-    da_g_async_queue_push_sorted_unlocked g_async_queue_push_sorted_unlocked; 
-    da_g_async_queue_pop g_async_queue_pop; 
-    da_g_async_queue_pop_unlocked g_async_queue_pop_unlocked; 
-    da_g_async_queue_try_pop g_async_queue_try_pop; 
-    da_g_async_queue_try_pop_unlocked g_async_queue_try_pop_unlocked; 
-    da_g_async_queue_timeout_pop g_async_queue_timeout_pop; 
-    da_g_async_queue_timeout_pop_unlocked g_async_queue_timeout_pop_unlocked; 
-    da_g_async_queue_length g_async_queue_length; 
-    da_g_async_queue_length_unlocked g_async_queue_length_unlocked; 
-    da_g_async_queue_sort g_async_queue_sort; 
-    da_g_async_queue_sort_unlocked g_async_queue_sort_unlocked; 
-    da_g_async_queue_timed_pop g_async_queue_timed_pop; 
-    da_g_async_queue_timed_pop_unlocked g_async_queue_timed_pop_unlocked; 
+    extern( C ) nothrow 
+    {
+        alias da_g_async_queue_new = GAsyncQueue* function();																								
+        alias da_g_async_queue_new_full = GAsyncQueue* function(GDestroyNotify item_free_func);																
+        alias da_g_async_queue_lock = void function(GAsyncQueue* queue);																					
+        alias da_g_async_queue_unlock = void function(GAsyncQueue* queue);																					
+        alias da_g_async_queue_ref = GAsyncQueue* function(GAsyncQueue* queue);																				
+        alias da_g_async_queue_unref = void function(GAsyncQueue* queue);																					
+        alias da_g_async_queue_ref_unlocked = void function(GAsyncQueue* queue);																			
+        alias da_g_async_queue_unref_and_unlock = void function(GAsyncQueue* queue);																		
+        alias da_g_async_queue_push = void function(GAsyncQueue* queue, gpointer data);																		
+        alias da_g_async_queue_push_unlocked = void function(GAsyncQueue* queue, gpointer data);															
+        alias da_g_async_queue_push_sorted = void function(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);					
+        alias da_g_async_queue_push_sorted_unlocked = void function(GAsyncQueue* queue, gpointer data, GCompareDataFunc func, gpointer user_data);			
+        alias da_g_async_queue_pop = gpointer function(GAsyncQueue* queue);																					
+        alias da_g_async_queue_pop_unlocked = gpointer function(GAsyncQueue* queue);																		
+        alias da_g_async_queue_try_pop = gpointer function(GAsyncQueue* queue);																				
+        alias da_g_async_queue_try_pop_unlocked = gpointer function(GAsyncQueue* queue);																	
+        alias da_g_async_queue_timeout_pop = gpointer function(GAsyncQueue* queue, guint64 timeout);														
+        alias da_g_async_queue_timeout_pop_unlocked = gpointer function(GAsyncQueue* queue, guint64 timeout);												
+        alias da_g_async_queue_length = gint function(GAsyncQueue* queue);																					
+        alias da_g_async_queue_length_unlocked = gint function(GAsyncQueue* queue);																			
+        alias da_g_async_queue_sort = void function(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);											
+        alias da_g_async_queue_sort_unlocked = void function(GAsyncQueue* queue, GCompareDataFunc func, gpointer user_data);								
+        alias da_g_async_queue_timed_pop = gpointer function(GAsyncQueue* queue, GTimeVal* end_time);														
+        alias da_g_async_queue_timed_pop_unlocked = gpointer function(GAsyncQueue* queue, GTimeVal* end_time);												
+    }
+
+    __gshared 
+    {
+        da_g_async_queue_new g_async_queue_new; 
+        da_g_async_queue_new_full g_async_queue_new_full; 
+        da_g_async_queue_lock g_async_queue_lock; 
+        da_g_async_queue_unlock g_async_queue_unlock; 
+        da_g_async_queue_ref g_async_queue_ref; 
+        da_g_async_queue_unref g_async_queue_unref; 
+        da_g_async_queue_ref_unlocked g_async_queue_ref_unlocked; 
+        da_g_async_queue_unref_and_unlock g_async_queue_unref_and_unlock; 
+        da_g_async_queue_push g_async_queue_push; 
+        da_g_async_queue_push_unlocked g_async_queue_push_unlocked; 
+        da_g_async_queue_push_sorted g_async_queue_push_sorted; 
+        da_g_async_queue_push_sorted_unlocked g_async_queue_push_sorted_unlocked; 
+        da_g_async_queue_pop g_async_queue_pop; 
+        da_g_async_queue_pop_unlocked g_async_queue_pop_unlocked; 
+        da_g_async_queue_try_pop g_async_queue_try_pop; 
+        da_g_async_queue_try_pop_unlocked g_async_queue_try_pop_unlocked; 
+        da_g_async_queue_timeout_pop g_async_queue_timeout_pop; 
+        da_g_async_queue_timeout_pop_unlocked g_async_queue_timeout_pop_unlocked; 
+        da_g_async_queue_length g_async_queue_length; 
+        da_g_async_queue_length_unlocked g_async_queue_length_unlocked; 
+        da_g_async_queue_sort g_async_queue_sort; 
+        da_g_async_queue_sort_unlocked g_async_queue_sort_unlocked; 
+        da_g_async_queue_timed_pop g_async_queue_timed_pop; 
+        da_g_async_queue_timed_pop_unlocked g_async_queue_timed_pop_unlocked; 
+    }
 }

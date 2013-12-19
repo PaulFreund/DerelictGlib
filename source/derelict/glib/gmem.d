@@ -36,17 +36,29 @@ extern (C):
 
 alias _GMemVTable GMemVTable;
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_mem_gc_friendly = gboolean;
-    alias da_glib_mem_profiler_table = GMemVTable*;
+    extern( C ) nothrow 
+    {
+        gboolean da_g_mem_gc_friendly;
+        GMemVTable* da_glib_mem_profiler_table;
+    }
+}
+else
+{
+    extern( C ) nothrow 
+    {
+        alias da_g_mem_gc_friendly = gboolean;
+        alias da_glib_mem_profiler_table = GMemVTable*;
+    }
+
+    __gshared
+    {
+        da_g_mem_gc_friendly g_mem_gc_friendly;
+        da_glib_mem_profiler_table glib_mem_profiler_table;
+    }
 }
 
-__gshared
-{
-    da_g_mem_gc_friendly g_mem_gc_friendly;
-    da_glib_mem_profiler_table glib_mem_profiler_table;
-}
 
 struct _GMemVTable
 {
@@ -58,49 +70,67 @@ struct _GMemVTable
 	gpointer function (gpointer, gsize) try_realloc;
 }
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_free = void function(gpointer mem);																
-    alias da_g_malloc = gpointer function(gsize n_bytes);														
-    alias da_g_malloc0 = gpointer function(gsize n_bytes);														
-    alias da_g_realloc = gpointer function(gpointer mem, gsize n_bytes);										
-    alias da_g_try_malloc = gpointer function(gsize n_bytes);													
-    alias da_g_try_malloc0 = gpointer function(gsize n_bytes);													
-    alias da_g_try_realloc = gpointer function(gpointer mem, gsize n_bytes);									
-    alias da_g_malloc_n = gpointer function(gsize n_blocks, gsize n_block_bytes);								
-    alias da_g_malloc0_n = gpointer function(gsize n_blocks, gsize n_block_bytes);								
-    alias da_g_realloc_n = gpointer function(gpointer mem, gsize n_blocks, gsize n_block_bytes);				
-    alias da_g_try_malloc_n = gpointer function(gsize n_blocks, gsize n_block_bytes);							
-    alias da_g_try_malloc0_n = gpointer function(gsize n_blocks, gsize n_block_bytes);							
-    alias da_g_try_realloc_n = gpointer function(gpointer mem, gsize n_blocks, gsize n_block_bytes);			
-    alias da_g_mem_set_vtable = void function(GMemVTable* vtable);												
-    alias da_g_mem_is_system_malloc = gboolean function();														
-    alias da_g_mem_profile = void function();																	
+    extern( C ) nothrow 
+    {
+        void g_free(gpointer mem);
+        gpointer g_malloc(gsize n_bytes);
+        gpointer g_malloc0(gsize n_bytes);
+        gpointer g_realloc(gpointer mem, gsize n_bytes);
+        gpointer g_try_malloc(gsize n_bytes);
+        gpointer g_try_malloc0(gsize n_bytes);
+        gpointer g_try_realloc(gpointer mem, gsize n_bytes);
+        gpointer g_malloc_n(gsize n_blocks, gsize n_block_bytes);
+        gpointer g_malloc0_n(gsize n_blocks, gsize n_block_bytes);
+        gpointer g_realloc_n(gpointer mem, gsize n_blocks, gsize n_block_bytes);
+        gpointer g_try_malloc_n(gsize n_blocks, gsize n_block_bytes);
+        gpointer g_try_malloc0_n(gsize n_blocks, gsize n_block_bytes);
+        gpointer g_try_realloc_n(gpointer mem, gsize n_blocks, gsize n_block_bytes);
+        void g_mem_set_vtable(GMemVTable* vtable);
+        gboolean g_mem_is_system_malloc();
+        void g_mem_profile();
+    }
 }
-
-__gshared
+else
 {
-	da_g_free g_free; 
-    da_g_malloc g_malloc; 
-    da_g_malloc0 g_malloc0; 
-    da_g_realloc g_realloc; 
-    da_g_try_malloc g_try_malloc; 
-    da_g_try_malloc0 g_try_malloc0; 
-    da_g_try_realloc g_try_realloc; 
-    da_g_malloc_n g_malloc_n; 
-    da_g_malloc0_n g_malloc0_n; 
-    da_g_realloc_n g_realloc_n; 
-    da_g_try_malloc_n g_try_malloc_n; 
-    da_g_try_malloc0_n g_try_malloc0_n; 
-    da_g_try_realloc_n g_try_realloc_n; 
-    da_g_mem_set_vtable g_mem_set_vtable; 
-    da_g_mem_is_system_malloc g_mem_is_system_malloc; 
-    da_g_mem_profile g_mem_profile; 
+    extern( C ) nothrow 
+    {
+        alias da_g_free = void function(gpointer mem);																
+        alias da_g_malloc = gpointer function(gsize n_bytes);														
+        alias da_g_malloc0 = gpointer function(gsize n_bytes);														
+        alias da_g_realloc = gpointer function(gpointer mem, gsize n_bytes);										
+        alias da_g_try_malloc = gpointer function(gsize n_bytes);													
+        alias da_g_try_malloc0 = gpointer function(gsize n_bytes);													
+        alias da_g_try_realloc = gpointer function(gpointer mem, gsize n_bytes);									
+        alias da_g_malloc_n = gpointer function(gsize n_blocks, gsize n_block_bytes);								
+        alias da_g_malloc0_n = gpointer function(gsize n_blocks, gsize n_block_bytes);								
+        alias da_g_realloc_n = gpointer function(gpointer mem, gsize n_blocks, gsize n_block_bytes);				
+        alias da_g_try_malloc_n = gpointer function(gsize n_blocks, gsize n_block_bytes);							
+        alias da_g_try_malloc0_n = gpointer function(gsize n_blocks, gsize n_block_bytes);							
+        alias da_g_try_realloc_n = gpointer function(gpointer mem, gsize n_blocks, gsize n_block_bytes);			
+        alias da_g_mem_set_vtable = void function(GMemVTable* vtable);												
+        alias da_g_mem_is_system_malloc = gboolean function();														
+        alias da_g_mem_profile = void function();																	
+    }
+
+    __gshared
+    {
+	    da_g_free g_free; 
+        da_g_malloc g_malloc; 
+        da_g_malloc0 g_malloc0; 
+        da_g_realloc g_realloc; 
+        da_g_try_malloc g_try_malloc; 
+        da_g_try_malloc0 g_try_malloc0; 
+        da_g_try_realloc g_try_realloc; 
+        da_g_malloc_n g_malloc_n; 
+        da_g_malloc0_n g_malloc0_n; 
+        da_g_realloc_n g_realloc_n; 
+        da_g_try_malloc_n g_try_malloc_n; 
+        da_g_try_malloc0_n g_try_malloc0_n; 
+        da_g_try_realloc_n g_try_realloc_n; 
+        da_g_mem_set_vtable g_mem_set_vtable; 
+        da_g_mem_is_system_malloc g_mem_is_system_malloc; 
+        da_g_mem_profile g_mem_profile; 
+    }
 }
-
-
-
-
-
-
-

@@ -33,14 +33,25 @@ import derelict.glib.glibconfig;
 
 extern (C):
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_on_error_query = void function(const(gchar)* prg_name);			
-    alias da_g_on_error_stack_trace = void function(const(gchar)* prg_name);	
+    extern( C ) nothrow 
+    {
+        void g_on_error_query(const(gchar)* prg_name);
+        void g_on_error_stack_trace(const(gchar)* prg_name);
+    }
 }
-
-__gshared 
+else
 {
-    da_g_on_error_query g_on_error_query;
-    da_g_on_error_stack_trace g_on_error_stack_trace;
+    extern( C ) nothrow 
+    {
+        alias da_g_on_error_query = void function(const(gchar)* prg_name);			
+        alias da_g_on_error_stack_trace = void function(const(gchar)* prg_name);	
+    }
+
+    __gshared 
+    {
+        da_g_on_error_query g_on_error_query;
+        da_g_on_error_stack_trace g_on_error_stack_trace;
+    }
 }

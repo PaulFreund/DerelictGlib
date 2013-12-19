@@ -139,9 +139,6 @@ struct _GScanner
 	GScannerMsgFunc msg_handler;
 }
 
-//union _GTokenValue;
-
-
 union _GTokenValue
 {
 	gpointer v_symbol;
@@ -158,52 +155,82 @@ union _GTokenValue
 	guint v_error;
 }
 
-extern( C ) nothrow 
+version(Derelict_Link_Static)
 {
-    alias da_g_scanner_new = GScanner* function(const(GScannerConfig)* config_templ);																																			
-    alias da_g_scanner_destroy = void function(GScanner* scanner);																																								
-    alias da_g_scanner_input_file = void function(GScanner* scanner, gint input_fd);																																			
-    alias da_g_scanner_sync_file_offset = void function(GScanner* scanner);																																						
-    alias da_g_scanner_input_text = void function(GScanner* scanner, const(gchar)* text, guint text_len);																														
-    alias da_g_scanner_get_next_token = GTokenType function(GScanner* scanner);																																					
-    alias da_g_scanner_peek_next_token = GTokenType function(GScanner* scanner);																																				
-    alias da_g_scanner_cur_token = GTokenType function(GScanner* scanner);																																						
-    alias da_g_scanner_cur_value = GTokenValue function(GScanner* scanner);																																						
-    alias da_g_scanner_cur_line = guint function(GScanner* scanner);																																							
-    alias da_g_scanner_cur_position = guint function(GScanner* scanner);																																						
-    alias da_g_scanner_eof = gboolean function(GScanner* scanner);																																								
-    alias da_g_scanner_set_scope = guint function(GScanner* scanner, guint scope_id);																																			
-    alias da_g_scanner_scope_add_symbol = void function(GScanner* scanner, guint scope_id, const(gchar)* symbol, gpointer value);																								
-    alias da_g_scanner_scope_remove_symbol = void function(GScanner* scanner, guint scope_id, const(gchar)* symbol);																											
-    alias da_g_scanner_scope_lookup_symbol = gpointer function(GScanner* scanner, guint scope_id, const(gchar)* symbol);																										
-    alias da_g_scanner_scope_foreach_symbol = void function(GScanner* scanner, guint scope_id, GHFunc func, gpointer user_data);																								
-    alias da_g_scanner_lookup_symbol = gpointer function(GScanner* scanner, const(gchar)* symbol);																																
-    alias da_g_scanner_unexp_token = void function(GScanner* scanner, GTokenType expected_token, const(gchar)* identifier_spec, const(gchar)* symbol_spec, const(gchar)* symbol_name, const(gchar)* message, gint is_error);	
-    alias da_g_scanner_error = void function(GScanner* scanner, const(gchar)* format, ...);																																		
-    alias da_g_scanner_warn = void function(GScanner* scanner, const(gchar)* format, ...);																																		
+    extern( C ) nothrow 
+    {
+        GScanner* g_scanner_new(const(GScannerConfig)* config_templ);
+        void g_scanner_destroy(GScanner* scanner);
+        void g_scanner_input_file(GScanner* scanner, gint input_fd);
+        void g_scanner_sync_file_offset(GScanner* scanner);
+        void g_scanner_input_text(GScanner* scanner, const(gchar)* text, guint text_len);
+        GTokenType g_scanner_get_next_token(GScanner* scanner);
+        GTokenType g_scanner_peek_next_token(GScanner* scanner);
+        GTokenType g_scanner_cur_token(GScanner* scanner);
+        GTokenValue g_scanner_cur_value(GScanner* scanner);
+        guint g_scanner_cur_line(GScanner* scanner);
+        guint g_scanner_cur_position(GScanner* scanner);
+        gboolean g_scanner_eof(GScanner* scanner);
+        guint g_scanner_set_scope(GScanner* scanner, guint scope_id);
+        void g_scanner_scope_add_symbol(GScanner* scanner, guint scope_id, const(gchar)* symbol, gpointer value);
+        void g_scanner_scope_remove_symbol(GScanner* scanner, guint scope_id, const(gchar)* symbol);
+        gpointer g_scanner_scope_lookup_symbol(GScanner* scanner, guint scope_id, const(gchar)* symbol);
+        void g_scanner_scope_foreach_symbol(GScanner* scanner, guint scope_id, GHFunc func, gpointer user_data);
+        gpointer g_scanner_lookup_symbol(GScanner* scanner, const(gchar)* symbol);
+        void g_scanner_unexp_token(GScanner* scanner, GTokenType expected_token, const(gchar)* identifier_spec, const(gchar)* symbol_spec, const(gchar)* symbol_name, const(gchar)* message, gint is_error);
+        void g_scanner_error(GScanner* scanner, const(gchar)* format, ...);
+        void g_scanner_warn(GScanner* scanner, const(gchar)* format, ...);
+    }
 }
-
-__gshared
+else
 {
-    da_g_scanner_new g_scanner_new; 
-    da_g_scanner_destroy g_scanner_destroy; 
-    da_g_scanner_input_file g_scanner_input_file; 
-    da_g_scanner_sync_file_offset g_scanner_sync_file_offset; 
-    da_g_scanner_input_text g_scanner_input_text; 
-    da_g_scanner_get_next_token g_scanner_get_next_token; 
-    da_g_scanner_peek_next_token g_scanner_peek_next_token; 
-    da_g_scanner_cur_token g_scanner_cur_token; 
-    da_g_scanner_cur_value g_scanner_cur_value; 
-    da_g_scanner_cur_line g_scanner_cur_line; 
-    da_g_scanner_cur_position g_scanner_cur_position; 
-    da_g_scanner_eof g_scanner_eof; 
-    da_g_scanner_set_scope g_scanner_set_scope; 
-    da_g_scanner_scope_add_symbol g_scanner_scope_add_symbol; 
-    da_g_scanner_scope_remove_symbol g_scanner_scope_remove_symbol; 
-    da_g_scanner_scope_lookup_symbol g_scanner_scope_lookup_symbol; 
-    da_g_scanner_scope_foreach_symbol g_scanner_scope_foreach_symbol; 
-    da_g_scanner_lookup_symbol g_scanner_lookup_symbol; 
-    da_g_scanner_unexp_token g_scanner_unexp_token; 
-    da_g_scanner_error g_scanner_error; 
-    da_g_scanner_warn g_scanner_warn; 
+    extern( C ) nothrow 
+    {
+        alias da_g_scanner_new = GScanner* function(const(GScannerConfig)* config_templ);																																			
+        alias da_g_scanner_destroy = void function(GScanner* scanner);																																								
+        alias da_g_scanner_input_file = void function(GScanner* scanner, gint input_fd);																																			
+        alias da_g_scanner_sync_file_offset = void function(GScanner* scanner);																																						
+        alias da_g_scanner_input_text = void function(GScanner* scanner, const(gchar)* text, guint text_len);																														
+        alias da_g_scanner_get_next_token = GTokenType function(GScanner* scanner);																																					
+        alias da_g_scanner_peek_next_token = GTokenType function(GScanner* scanner);																																				
+        alias da_g_scanner_cur_token = GTokenType function(GScanner* scanner);																																						
+        alias da_g_scanner_cur_value = GTokenValue function(GScanner* scanner);																																						
+        alias da_g_scanner_cur_line = guint function(GScanner* scanner);																																							
+        alias da_g_scanner_cur_position = guint function(GScanner* scanner);																																						
+        alias da_g_scanner_eof = gboolean function(GScanner* scanner);																																								
+        alias da_g_scanner_set_scope = guint function(GScanner* scanner, guint scope_id);																																			
+        alias da_g_scanner_scope_add_symbol = void function(GScanner* scanner, guint scope_id, const(gchar)* symbol, gpointer value);																								
+        alias da_g_scanner_scope_remove_symbol = void function(GScanner* scanner, guint scope_id, const(gchar)* symbol);																											
+        alias da_g_scanner_scope_lookup_symbol = gpointer function(GScanner* scanner, guint scope_id, const(gchar)* symbol);																										
+        alias da_g_scanner_scope_foreach_symbol = void function(GScanner* scanner, guint scope_id, GHFunc func, gpointer user_data);																								
+        alias da_g_scanner_lookup_symbol = gpointer function(GScanner* scanner, const(gchar)* symbol);																																
+        alias da_g_scanner_unexp_token = void function(GScanner* scanner, GTokenType expected_token, const(gchar)* identifier_spec, const(gchar)* symbol_spec, const(gchar)* symbol_name, const(gchar)* message, gint is_error);	
+        alias da_g_scanner_error = void function(GScanner* scanner, const(gchar)* format, ...);																																		
+        alias da_g_scanner_warn = void function(GScanner* scanner, const(gchar)* format, ...);																																		
+    }
+
+    __gshared
+    {
+        da_g_scanner_new g_scanner_new; 
+        da_g_scanner_destroy g_scanner_destroy; 
+        da_g_scanner_input_file g_scanner_input_file; 
+        da_g_scanner_sync_file_offset g_scanner_sync_file_offset; 
+        da_g_scanner_input_text g_scanner_input_text; 
+        da_g_scanner_get_next_token g_scanner_get_next_token; 
+        da_g_scanner_peek_next_token g_scanner_peek_next_token; 
+        da_g_scanner_cur_token g_scanner_cur_token; 
+        da_g_scanner_cur_value g_scanner_cur_value; 
+        da_g_scanner_cur_line g_scanner_cur_line; 
+        da_g_scanner_cur_position g_scanner_cur_position; 
+        da_g_scanner_eof g_scanner_eof; 
+        da_g_scanner_set_scope g_scanner_set_scope; 
+        da_g_scanner_scope_add_symbol g_scanner_scope_add_symbol; 
+        da_g_scanner_scope_remove_symbol g_scanner_scope_remove_symbol; 
+        da_g_scanner_scope_lookup_symbol g_scanner_scope_lookup_symbol; 
+        da_g_scanner_scope_foreach_symbol g_scanner_scope_foreach_symbol; 
+        da_g_scanner_lookup_symbol g_scanner_lookup_symbol; 
+        da_g_scanner_unexp_token g_scanner_unexp_token; 
+        da_g_scanner_error g_scanner_error; 
+        da_g_scanner_warn g_scanner_warn; 
+    }
 }
