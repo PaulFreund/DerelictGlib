@@ -56,7 +56,7 @@ version(Derelict_Link_Static)
 {
     extern( C ) nothrow 
     {
-        GSourceFuncs da_g_io_watch_funcs;
+        GSourceFuncs g_io_watch_funcs;
     }
 }
 else

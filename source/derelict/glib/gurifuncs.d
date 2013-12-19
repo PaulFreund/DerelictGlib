@@ -41,7 +41,6 @@ version(Derelict_Link_Static)
         char* g_uri_unescape_segment(const(char)* escaped_string, const(char)* escaped_string_end, const(char)* illegal_characters);
         char* g_uri_parse_scheme(const(char)* uri);
         char* g_uri_escape_string(const(char)* unescaped, const(char)* reserved_chars_allowed, gboolean allow_utf8);
-
     }
 }
 else
@@ -52,7 +51,6 @@ else
         alias da_g_uri_unescape_segment = char* function(const(char)* escaped_string, const(char)* escaped_string_end, const(char)* illegal_characters);			
         alias da_g_uri_parse_scheme = char* function(const(char)* uri);																								
         alias da_g_uri_escape_string = char* function(const(char)* unescaped, const(char)* reserved_chars_allowed, gboolean allow_utf8);							
-
     }
 
     __gshared

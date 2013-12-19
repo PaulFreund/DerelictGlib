@@ -64,12 +64,6 @@ struct _GTimeVal
 	glong tv_usec;
 }
 
-//union _GDoubleIEEE754;
-
-
-//union _GFloatIEEE754;
-
-
 union _GFloatIEEE754
 {
 	gfloat v_float;

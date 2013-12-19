@@ -40,8 +40,8 @@ version(Derelict_Link_Static)
 {
     extern( C ) nothrow 
     {
-        gboolean da_g_mem_gc_friendly;
-        GMemVTable* da_glib_mem_profiler_table;
+        gboolean g_mem_gc_friendly;
+        GMemVTable* glib_mem_profiler_table;
     }
 }
 else

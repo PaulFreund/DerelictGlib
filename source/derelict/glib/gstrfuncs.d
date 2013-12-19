@@ -41,7 +41,7 @@ version(Derelict_Link_Static)
 {
     extern( C ) nothrow 
     {
-        const guint16* da_g_ascii_table;
+        const guint16* g_ascii_table;
     }
 }
 else

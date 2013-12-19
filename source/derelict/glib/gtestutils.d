@@ -40,8 +40,6 @@ import core.stdc.string;
 
 extern (C):
 
-//alias GTestCase GTestCase;
-//alias GTestSuite GTestSuite;
 alias void function () GTestFunc;
 alias void function (const(void)*) GTestDataFunc;
 alias void function (void*, const(void)*) GTestFixtureFunc;
@@ -56,7 +54,7 @@ version(Derelict_Link_Static)
 {
     extern( C ) nothrow 
     {
-        const GTestConfig* da_g_test_config_vars;
+        const GTestConfig* g_test_config_vars;
     }
 }
 else

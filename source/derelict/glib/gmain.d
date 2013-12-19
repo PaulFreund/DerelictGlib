@@ -52,9 +52,9 @@ version(Derelict_Link_Static)
 {
     extern( C ) nothrow 
     {
-        GSourceFuncs da_g_timeout_funcs;
-        GSourceFuncs da_g_child_watch_funcs;
-        GSourceFuncs da_g_idle_funcs;
+        GSourceFuncs g_timeout_funcs;
+        GSourceFuncs g_child_watch_funcs;
+        GSourceFuncs g_idle_funcs;
     }
 }
 else
