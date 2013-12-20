@@ -50,7 +50,7 @@ alias void function () GSourceDummyMarshal;
 
 version(Derelict_Link_Static)
 {
-    extern( C ) nothrow 
+    extern( C ) __gshared 
     {
         GSourceFuncs g_timeout_funcs;
         GSourceFuncs g_child_watch_funcs;

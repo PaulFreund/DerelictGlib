@@ -38,7 +38,7 @@ alias _GMemVTable GMemVTable;
 
 version(Derelict_Link_Static)
 {
-    extern( C ) nothrow 
+    extern( C ) __gshared 
     {
         gboolean g_mem_gc_friendly;
         GMemVTable* glib_mem_profiler_table;

@@ -54,22 +54,22 @@ alias int function (_GIOChannel*, _Anonymous_4, void*) GIOFunc;
 
 version(Derelict_Link_Static)
 {
-    extern( C ) nothrow 
+    extern( C ) __gshared 
     {
         GSourceFuncs g_io_watch_funcs;
     }
 }
 else
 {
-extern( C ) nothrow 
-{
-    alias da_g_io_watch_funcs = GSourceFuncs;
-}
+	extern( C ) nothrow 
+	{
+	    alias da_g_io_watch_funcs = GSourceFuncs;
+	}
 
-__gshared
-{
-    da_g_io_watch_funcs g_io_watch_funcs;
-}
+	__gshared
+	{
+	    da_g_io_watch_funcs g_io_watch_funcs;
+	}
 }
 
 
