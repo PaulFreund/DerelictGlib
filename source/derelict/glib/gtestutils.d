@@ -52,10 +52,10 @@ alias int function (const(char)*, GLogLevelFlags, const(char)*, void*) GTestLogF
 
 version(Derelict_Link_Static)
 {
-    extern( C ) nothrow 
-    {
-        const GTestConfig* g_test_config_vars;
-    }
+    //extern( C ) nothrow 
+    //{
+    //    const GTestConfig* g_test_config_vars;
+    //}
 }
 else
 {

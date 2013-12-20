@@ -39,10 +39,10 @@ alias _Anonymous_0 GAsciiType;
 
 version(Derelict_Link_Static)
 {
-    extern( C ) nothrow 
-    {
-        const guint16* g_ascii_table;
-    }
+    //extern( C ) nothrow 
+    //{
+    //    const guint16* g_ascii_table;
+    //}
 }
 else
 {
