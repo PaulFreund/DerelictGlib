@@ -2,7 +2,7 @@
 	"name": "derelict_extras-glib",
 	"description": "Dynamic bindings to glib-2.0 for the D Programming Language.",
 	"homepage": "https://github.com/PaulFreund/DerelictGlib",
-	"license": "Boost",
+	"license": "BSL-1.0",
 	"authors": [
 		"Paul Freund"
 	],
